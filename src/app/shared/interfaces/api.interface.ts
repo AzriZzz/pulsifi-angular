@@ -53,4 +53,17 @@ export interface AuthResponse {
     startDate: string;
     status: 'active' | 'inactive';
   };
-} 
+}
+
+export interface ValidationResponse {
+  status: 'success' | 'error';
+  message: string;
+  field?: string;
+  requirements?: {
+    minLength: number;
+    uppercase: boolean;
+    lowercase: boolean;
+    number: boolean;
+    special: boolean;
+  };
+}

@@ -3,14 +3,14 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { User } from '../../shared/interfaces/user.interface';
+import { Employee } from '../../shared/interfaces/user.interface';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
   let router: Router;
 
-  const mockUser: User = {
+  const mockUser = {
     id: '1',
     firstName: 'John',
     lastName: 'Doe',
@@ -27,15 +27,14 @@ describe('AuthService', () => {
         },
       ],
     },
-    startDate: new Date('2024-01-01'),
-    status: 'active',
-  };
+    startDate: '2024-01-01',
+    status: 'active' as const,
+  } satisfies Employee;
 
   const mockAuthResponse = {
     token: 'mock-token',
     user: {
       ...mockUser,
-      startDate: mockUser.startDate.toISOString(),
     },
   };
 

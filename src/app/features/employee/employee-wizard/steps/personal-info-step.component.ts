@@ -1,19 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { EmployeeValidationService } from '../../services/employee-validation.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-
-interface PersonalInfo {
-  firstName: string;
-  lastName: string;
-  email: string;
-  department: string;
-}
+import { PersonalInfo } from '../../../../shared/interfaces/employee.interface';
 
 @Component({
   selector: 'app-personal-info-step',
@@ -24,28 +31,44 @@ interface PersonalInfo {
     NzFormModule,
     NzInputModule,
     NzSelectModule,
-    NzSpinModule
+    NzSpinModule,
   ],
   template: `
-    <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()" nzLayout="vertical">
+    <form
+      nz-form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      nzLayout="vertical"
+    >
       <nz-spin [nzSpinning]="isValidating">
         <nz-form-item>
           <nz-form-label nzRequired>First Name</nz-form-label>
           <nz-form-control [nzErrorTip]="'Please input your first name'">
-            <input nz-input formControlName="firstName" placeholder="First Name" />
+            <input
+              nz-input
+              formControlName="firstName"
+              placeholder="First Name"
+            />
           </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
           <nz-form-label nzRequired>Last Name</nz-form-label>
           <nz-form-control [nzErrorTip]="'Please input your last name'">
-            <input nz-input formControlName="lastName" placeholder="Last Name" />
+            <input
+              nz-input
+              formControlName="lastName"
+              placeholder="Last Name"
+            />
           </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
           <nz-form-label nzRequired>Email</nz-form-label>
-          <nz-form-control [nzErrorTip]="emailErrorTpl" [nzValidatingTip]="'Checking email...'">
+          <nz-form-control
+            [nzErrorTip]="emailErrorTpl"
+            [nzValidatingTip]="'Checking email...'"
+          >
             <input nz-input formControlName="email" placeholder="Email" />
             <ng-template #emailErrorTpl let-control>
               <ng-container *ngIf="control.hasError('required')">
@@ -64,8 +87,14 @@ interface PersonalInfo {
         <nz-form-item>
           <nz-form-label nzRequired>Department</nz-form-label>
           <nz-form-control [nzErrorTip]="'Please select department'">
-            <nz-select formControlName="department" nzPlaceHolder="Select department">
-              <nz-option nzValue="Engineering" nzLabel="Engineering"></nz-option>
+            <nz-select
+              formControlName="department"
+              nzPlaceHolder="Select department"
+            >
+              <nz-option
+                nzValue="Engineering"
+                nzLabel="Engineering"
+              ></nz-option>
               <nz-option nzValue="HR" nzLabel="HR"></nz-option>
               <nz-option nzValue="Finance" nzLabel="Finance"></nz-option>
               <nz-option nzValue="Marketing" nzLabel="Marketing"></nz-option>
@@ -76,14 +105,16 @@ interface PersonalInfo {
       </nz-spin>
     </form>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    nz-form-item {
-      margin-bottom: 24px;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      nz-form-item {
+        margin-bottom: 24px;
+      }
+    `,
+  ],
 })
 export class PersonalInfoStepComponent implements OnInit {
   private fb = inject(FormBuilder);
@@ -101,7 +132,7 @@ export class PersonalInfoStepComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      department: ['', [Validators.required]]
+      department: ['', [Validators.required]],
     });
 
     if (this.initialData) {
@@ -115,28 +146,34 @@ export class PersonalInfoStepComponent implements OnInit {
     // Set up email uniqueness validation
     const emailControl = this.form.get('email');
     if (emailControl) {
-      emailControl.valueChanges.pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        switchMap(email => {
-          if (email && emailControl.valid && !emailControl.hasError('email')) {
-            this.isValidating = true;
-            emailControl.setErrors({ validating: true });
-            return this.validationService.checkEmailUniqueness(email);
+      emailControl.valueChanges
+        .pipe(
+          debounceTime(500),
+          distinctUntilChanged(),
+          switchMap((email) => {
+            if (
+              email &&
+              emailControl.valid &&
+              !emailControl.hasError('email')
+            ) {
+              this.isValidating = true;
+              emailControl.setErrors({ validating: true });
+              return this.validationService.checkEmailUniqueness(email);
+            }
+            return [];
+          })
+        )
+        .subscribe((isUnique) => {
+          this.isValidating = false;
+          if (emailControl.hasError('validating')) {
+            if (!isUnique) {
+              emailControl.setErrors({ emailTaken: true });
+            } else {
+              emailControl.setErrors(null);
+            }
+            this.checkAndEmitFormState();
           }
-          return [];
-        })
-      ).subscribe(isUnique => {
-        this.isValidating = false;
-        if (emailControl.hasError('validating')) {
-          if (!isUnique) {
-            emailControl.setErrors({ emailTaken: true });
-          } else {
-            emailControl.setErrors(null);
-          }
-          this.checkAndEmitFormState();
-        }
-      });
+        });
     }
 
     // Initial form state emission
@@ -154,7 +191,7 @@ export class PersonalInfoStepComponent implements OnInit {
     if (this.form.valid) {
       this.formData.emit(this.form.value);
     } else {
-      Object.values(this.form.controls).forEach(control => {
+      Object.values(this.form.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsTouched();
           control.updateValueAndValidity({ onlySelf: true });
@@ -163,4 +200,4 @@ export class PersonalInfoStepComponent implements OnInit {
       this.checkAndEmitFormState();
     }
   }
-} 
+}

@@ -9,7 +9,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthService } from '../../core/services/auth.service';
 import { EmployeeService } from '../employee/services/employee.service';
-import { User } from '../../shared/interfaces/user.interface';
+import { Employee } from '../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-employees',
@@ -103,7 +103,7 @@ export class EmployeesComponent {
   private employeeService = inject(EmployeeService);
   private message = inject(NzMessageService);
 
-  readonly employees = signal<User[]>([]);
+  readonly employees = signal<Employee[]>([]);
   readonly loading = signal(true);
 
   constructor() {

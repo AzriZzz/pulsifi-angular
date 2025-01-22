@@ -2,8 +2,17 @@ import { Injectable, computed, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap, map } from 'rxjs';
-import { User } from '../../shared/interfaces/user.interface';
-import { AuthResponse, LoginCredentials } from '../../shared/interfaces/api.interface';
+import {
+  User,
+  UserRole,
+  Permission,
+  UserData,
+  MockUser,
+} from '../../shared/interfaces/user.interface';
+import {
+  AuthResponse,
+  LoginCredentials,
+} from '../../shared/interfaces/api.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +25,11 @@ export class AuthService {
   // Computed states
   readonly isAuthenticated = computed(() => !!this.currentUser());
   readonly userRole = computed(() => this.currentUser()?.role);
-  readonly userPermissions = computed(() => this.currentUser()?.role.permissions || []);
+  readonly userPermissions = computed(
+    () => this.currentUser()?.role.permissions || []
+  );
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     this.initializeFromStorage();
   }
 
@@ -30,13 +38,13 @@ export class AuthService {
     try {
       const token = localStorage.getItem('auth_token');
       const userStr = localStorage.getItem('user');
-      
+
       if (!token || !userStr) {
         this.clearState();
         return;
       }
 
-      let userData: any;
+      let userData: UserData;
       try {
         userData = JSON.parse(userStr);
       } catch (e) {
@@ -71,7 +79,13 @@ export class AuthService {
   }
 
   // Transform API user data to User type
-  private transformUserData(userData: AuthResponse['user']): User {
+  private isPermissionObject(
+    p: string | { id: string; name: string; description: string }
+  ): p is { id: string; name: string; description: string } {
+    return typeof p === 'object' && p !== null && 'name' in p;
+  }
+
+  private transformUserData(userData: UserData): User {
     if (!userData || typeof userData !== 'object') {
       throw new Error('Invalid user data');
     }
@@ -80,16 +94,24 @@ export class AuthService {
       throw new Error('Invalid user data structure');
     }
 
-    return {
+    const user = {
       ...userData,
       startDate: new Date(userData.startDate),
       role: {
-        ...userData.role,
-        permissions: userData.role.permissions.map(p => ({
-          ...p,
-        })),
+        id: userData.role.id || crypto.randomUUID(),
+        name: userData.role.name,
+        permissions: userData.role.permissions.map((p) => {
+          const permName = this.isPermissionObject(p) ? p.name : p;
+          return {
+            id: crypto.randomUUID(),
+            name: permName,
+            description: `Permission to ${permName}`,
+          };
+        }),
       },
     };
+
+    return user;
   }
 
   // Clear all state
@@ -102,11 +124,11 @@ export class AuthService {
 
   // Login
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http.get<any[]>('/users').pipe(
-      map(users => {
-        const user = users.find(u => 
-          u.email === credentials.email && 
-          u.password === credentials.password
+    return this.http.get<MockUser[]>('/users').pipe(
+      map((users) => {
+        const user = users.find(
+          (u) =>
+            u.email === credentials.email && u.password === credentials.password
         );
 
         if (!user) {
@@ -114,7 +136,9 @@ export class AuthService {
         }
 
         // Create a token (in a real app, this would be done by the backend)
-        const token = btoa(JSON.stringify({ userId: user.id, timestamp: Date.now() }));
+        const token = btoa(
+          JSON.stringify({ userId: user.id, timestamp: Date.now() })
+        );
 
         const response: AuthResponse = {
           token,
@@ -127,20 +151,23 @@ export class AuthService {
             role: {
               id: '1',
               name: user.role.name,
-              permissions: user.role.permissions.map((name: string) => ({
-                id: name,
-                name,
-                description: name
-              }))
+              permissions: user.role.permissions.map((p) => {
+                const permName = this.isPermissionObject(p) ? p.name : p;
+                return {
+                  id: crypto.randomUUID(),
+                  name: permName,
+                  description: `Permission to ${permName}`,
+                };
+              }),
             },
             startDate: new Date().toISOString(),
-            status: 'active'
-          }
+            status: 'active',
+          },
         };
 
         return response;
       }),
-      tap(response => {
+      tap((response) => {
         this.setSession(response);
       })
     );
@@ -156,10 +183,10 @@ export class AuthService {
   private setSession(response: AuthResponse): void {
     try {
       const user = this.transformUserData(response.user);
-      
+
       this.authToken.set(response.token);
       this.currentUser.set(user);
-      
+
       localStorage.setItem('auth_token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
     } catch (error) {
@@ -171,15 +198,15 @@ export class AuthService {
 
   // Permission checking
   hasPermission(permission: string): boolean {
-    return this.userPermissions().some(p => p.name === permission);
+    return this.userPermissions().some((p) => p.name === permission);
   }
 
   hasAnyPermission(permissions: string[]): boolean {
-    return permissions.some(permission => this.hasPermission(permission));
+    return permissions.some((permission) => this.hasPermission(permission));
   }
 
   hasAllPermissions(permissions: string[]): boolean {
-    return permissions.every(permission => this.hasPermission(permission));
+    return permissions.every((permission) => this.hasPermission(permission));
   }
 
   // Get current auth state
@@ -194,9 +221,9 @@ export class AuthService {
   // Refresh token - implement if needed
   refreshToken(): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('/auth/refresh', {}).pipe(
-      tap(response => {
+      tap((response) => {
         this.setSession(response);
       })
     );
   }
-} 
+}

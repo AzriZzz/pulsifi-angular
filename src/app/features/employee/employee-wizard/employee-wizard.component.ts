@@ -12,31 +12,13 @@ import { SystemAccessStepComponent } from './steps/system-access-step.component'
 import { EmployeeValidationService } from '../services/employee-validation.service';
 import { finalize } from 'rxjs';
 import { EmployeeService } from '../services/employee.service';
-
-export interface WizardStep {
-  title: string;
-  description: string;
-  isValid: boolean;
-}
-
-interface FormData {
-  step1: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    department: string;
-  } | null;
-  step2: {
-    role: string;
-    startDate: string;
-    status: 'active' | 'inactive';
-  } | null;
-  step3: {
-    password: string;
-    confirmPassword: string;
-    accessLevel: string;
-  } | null;
-}
+import {
+  WizardStep,
+  FormData,
+  Step1Data,
+  Step2Data,
+  Step3Data,
+} from '../../../shared/interfaces/employee.interface';
 
 @Component({
   selector: 'app-employee-wizard',
@@ -167,9 +149,22 @@ export class EmployeeWizardComponent {
 
   // Form data signals
   readonly formData = signal<FormData>({
-    step1: null,
-    step2: null,
-    step3: null,
+    step1: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      department: '',
+    },
+    step2: {
+      role: '',
+      startDate: '',
+      status: 'active',
+    },
+    step3: {
+      password: '',
+      confirmPassword: '',
+      accessLevel: '',
+    },
   });
 
   constructor() {
@@ -191,17 +186,17 @@ export class EmployeeWizardComponent {
     this.steps.set(newSteps);
   }
 
-  updateFormData(data: any) {
+  updateFormData(data: Step1Data | Step2Data | Step3Data) {
     const currentFormData = this.formData();
     switch (this.currentStep()) {
       case 0:
-        currentFormData.step1 = data;
+        currentFormData.step1 = data as Step1Data;
         break;
       case 1:
-        currentFormData.step2 = data;
+        currentFormData.step2 = data as Step2Data;
         break;
       case 2:
-        currentFormData.step3 = data;
+        currentFormData.step3 = data as Step3Data;
         break;
     }
     this.formData.set(currentFormData);
@@ -291,7 +286,7 @@ export class EmployeeWizardComponent {
           },
           error: (error) => {
             this.message.error('Failed to create employee. Please try again.');
-          }
+          },
         });
       } catch (error) {
         this.message.error('Submission failed. Please try again.');
