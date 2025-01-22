@@ -3,6 +3,8 @@ import {
   computed,
   inject,
   CUSTOM_ELEMENTS_SCHEMA,
+  HostListener,
+  signal
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -12,6 +14,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { AuthService } from '../services/auth.service';
+import { PreferencesService } from '../services/preferences.service';
 import { AcIfDirective } from '../../shared/directives/ac-if.directive';
 import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-design/icons-angular/icons';
 
@@ -33,9 +36,15 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
     <nz-layout class="min-h-screen">
       <!-- Header -->
       <nz-header
-        class="flex items-center justify-between px-6 bg-white shadow-sm"
+        class="flex items-center justify-between px-6 bg-white shadow-sm fixed w-full z-10"
       >
-        <div class="flex items-center">
+        <div class="flex items-center gap-4">
+          <span 
+            class="text-xl cursor-pointer lg:hidden" 
+            (click)="toggleSidebar()"
+          >
+            <span nz-icon [nzType]="isSidebarOpen() ? 'menu-fold' : 'menu-unfold'" nzTheme="outline"></span>
+          </span>
           <span class="text-xl font-semibold">Employee Portal</span>
         </div>
         <div class="flex items-center">
@@ -43,7 +52,7 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
             <a nz-dropdown [nzDropdownMenu]="menu">
               <div class="flex items-center cursor-pointer gap-2">
                 <nz-avatar [nzText]="userInitials()" nzSize="large"></nz-avatar>
-                <span>{{ userName() }}</span>
+                <span class="hidden sm:inline">{{ userName() }}</span>
                 <span nz-icon nzType="down" nzTheme="outline"></span>
               </div>
             </a>
@@ -59,10 +68,18 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
         </div>
       </nz-header>
 
-      <nz-layout>
+      <nz-layout class="min-h-screen pt-16">
         <!-- Sidebar -->
-        <nz-sider [nzCollapsible]="true" [nzWidth]="240">
-          <ul nz-menu nzMode="inline" class="h-full">
+        <nz-sider
+          class="fixed left-0 h-full pt-16 transition-all duration-300 ease-in-out"
+          [class.hidden]="!isSidebarOpen()"
+          [class.lg:block]="true"
+          [nzCollapsible]="true"
+          [nzCollapsed]="isCollapsed()"
+          (nzCollapsedChange)="onCollapse($event)"
+          [nzWidth]="240"
+        >
+          <ul nz-menu nzMode="inline" class="h-full border-r">
             <li
               nz-menu-item
               routerLink="/dashboard"
@@ -93,7 +110,11 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
         </nz-sider>
 
         <!-- Content -->
-        <nz-content class="p-6">
+        <nz-content 
+          class="p-6 transition-all duration-300 ease-in-out"
+          [class.lg:ml-[240px]]="!isCollapsed()"
+          [class.lg:ml-[80px]]="isCollapsed()"
+        >
           <router-outlet></router-outlet>
         </nz-content>
       </nz-layout>
@@ -112,17 +133,29 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
 
       nz-sider {
         background: #fff;
+        z-index: 5;
       }
 
       nz-content {
         background: #f0f2f5;
         min-height: calc(100vh - 64px);
       }
+
+      @media (max-width: 1024px) {
+        nz-content {
+          margin-left: 0 !important;
+        }
+      }
     `,
   ],
 })
 export class LayoutComponent {
   private readonly auth = inject(AuthService);
+  private readonly prefs = inject(PreferencesService);
+  
+  private readonly isMobile = signal<boolean>(window.innerWidth < 1024);
+  private readonly sidebarOpen = signal<boolean>(window.innerWidth >= 1024);
+  private readonly collapsed = signal<boolean>(this.prefs.getSidebarState());
 
   readonly userName = computed(() => {
     const user = this.auth.getCurrentUser();
@@ -133,6 +166,27 @@ export class LayoutComponent {
     const user = this.auth.getCurrentUser();
     return user ? `${user.firstName[0]}${user.lastName[0]}` : '';
   });
+
+  readonly isCollapsed = computed(() => this.collapsed());
+  readonly isSidebarOpen = computed(() => this.sidebarOpen());
+
+  @HostListener('window:resize')
+  onResize() {
+    const mobile = window.innerWidth < 1024;
+    this.isMobile.set(mobile);
+    if (!mobile && !this.sidebarOpen()) {
+      this.sidebarOpen.set(true);
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen.update(open => !open);
+  }
+
+  onCollapse(collapsed: boolean) {
+    this.collapsed.set(collapsed);
+    this.prefs.setSidebarState(collapsed);
+  }
 
   logout(): void {
     this.auth.logout();

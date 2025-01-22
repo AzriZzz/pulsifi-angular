@@ -16,7 +16,9 @@ import {
   TeamOutline,
   SafetyCertificateOutline,
   DownOutline,
-  LogoutOutline
+  LogoutOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline
 } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] = [
@@ -24,7 +26,9 @@ const icons: IconDefinition[] = [
   TeamOutline,
   SafetyCertificateOutline,
   DownOutline,
-  LogoutOutline
+  LogoutOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline
 ];
 
 registerLocaleData(en);
