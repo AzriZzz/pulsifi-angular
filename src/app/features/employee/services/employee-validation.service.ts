@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, delay, map, of } from 'rxjs';
+import { Observable, delay, map, of, catchError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
-export interface ValidationResponse {
+interface ValidationResponse {
   status: 'success' | 'error';
   message: string;
   field?: string;
-  fields?: string[];
   requirements?: {
     minLength: number;
     uppercase: boolean;
@@ -26,28 +25,42 @@ export class EmployeeValidationService {
   constructor(private http: HttpClient) {}
 
   validateStep1(data: any): Observable<ValidationResponse> {
-    return this.http.post<ValidationResponse>(`${this.apiUrl}/validation/step1`, data).pipe(
-      delay(3000) // Simulate network delay
+    const response: ValidationResponse = {
+      status: 'success',
+      message: 'Step 1 validation successful'
+    };
+    return of(response).pipe(
+      delay(1000) // Simulate network delay
     );
   }
 
   validateStep2(data: any): Observable<ValidationResponse> {
-    return this.http.post<ValidationResponse>(`${this.apiUrl}/validation/step2`, data).pipe(
-      delay(3000)
+    const response: ValidationResponse = {
+      status: 'success',
+      message: 'Step 2 validation successful'
+    };
+    return of(response).pipe(
+      delay(1000) // Simulate network delay
     );
   }
 
   validateStep3(data: any): Observable<ValidationResponse> {
-    return this.http.post<ValidationResponse>(`${this.apiUrl}/validation/step3`, data).pipe(
-      delay(3000)
+    const response: ValidationResponse = {
+      status: 'success',
+      message: 'Step 3 validation successful'
+    };
+    return of(response).pipe(
+      delay(1000) // Simulate network delay
     );
   }
 
   // Helper method to check email uniqueness
   checkEmailUniqueness(email: string): Observable<boolean> {
-    return this.http.get<any[]>(`${this.apiUrl}/employees`).pipe(
+    return this.http.get<any[]>('/employees').pipe(
       map(employees => !employees.some(emp => emp.email === email)),
-      delay(1000) // Shorter delay for better UX
+      catchError(() => {
+        return of(true); // Allow to proceed in case of error
+      })
     );
   }
 

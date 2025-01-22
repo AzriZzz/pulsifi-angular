@@ -158,9 +158,9 @@ export class EmployeeWizardComponent {
     },
   ]);
   readonly currentStep = signal(0);
-  readonly currentStepValid = computed(
-    () => this.steps()[this.currentStep()].isValid
-  );
+  readonly currentStepValid = computed(() => {
+    return this.steps()[this.currentStep()].isValid;
+  });
   readonly isValidating = signal(false);
 
   // Form data signals
@@ -184,9 +184,9 @@ export class EmployeeWizardComponent {
   }
 
   updateStepValidity(isValid: boolean) {
-    const currentSteps = this.steps();
-    currentSteps[this.currentStep()].isValid = isValid;
-    this.steps.set(currentSteps);
+    const newSteps = [...this.steps()];
+    newSteps[this.currentStep()].isValid = isValid;
+    this.steps.set(newSteps);
   }
 
   updateFormData(data: any) {

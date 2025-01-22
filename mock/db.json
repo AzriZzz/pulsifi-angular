@@ -7,7 +7,7 @@
       "email": "john.doe@example.com",
       "department": "Engineering",
       "role": {
-        "name": "Developer",
+        "name": "Employee",
         "permissions": ["view_employees", "edit_profile"]
       },
       "startDate": "2024-01-01",

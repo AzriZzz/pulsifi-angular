@@ -108,13 +108,9 @@ export class PersonalInfoStepComponent implements OnInit {
       this.form.patchValue(this.initialData);
     }
 
-    // Monitor form validity and emit changes
-    this.form.statusChanges.subscribe(() => {
-      this.formValid.emit(this.form.valid);
-      if (this.form.valid) {
-        this.formData.emit(this.form.value);
-      }
-    });
+    // Monitor both value and status changes
+    this.form.valueChanges.subscribe(() => this.checkAndEmitFormState());
+    this.form.statusChanges.subscribe(() => this.checkAndEmitFormState());
 
     // Set up email uniqueness validation
     const emailControl = this.form.get('email');
@@ -124,20 +120,33 @@ export class PersonalInfoStepComponent implements OnInit {
         distinctUntilChanged(),
         switchMap(email => {
           if (email && emailControl.valid && !emailControl.hasError('email')) {
+            this.isValidating = true;
             emailControl.setErrors({ validating: true });
             return this.validationService.checkEmailUniqueness(email);
           }
           return [];
         })
       ).subscribe(isUnique => {
+        this.isValidating = false;
         if (emailControl.hasError('validating')) {
           if (!isUnique) {
             emailControl.setErrors({ emailTaken: true });
           } else {
             emailControl.setErrors(null);
           }
+          this.checkAndEmitFormState();
         }
       });
+    }
+
+    // Initial form state emission
+    this.checkAndEmitFormState();
+  }
+
+  private checkAndEmitFormState() {
+    this.formValid.emit(this.form.valid);
+    if (this.form.valid) {
+      this.formData.emit(this.form.value);
     }
   }
 
@@ -151,6 +160,7 @@ export class PersonalInfoStepComponent implements OnInit {
           control.updateValueAndValidity({ onlySelf: true });
         }
       });
+      this.checkAndEmitFormState();
     }
   }
 } 
