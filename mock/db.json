@@ -1,0 +1,76 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "department": "Engineering",
+      "role": {
+        "name": "Developer",
+        "permissions": ["view_employees", "edit_profile"]
+      },
+      "startDate": "2024-01-01",
+      "status": "active"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "Admin",
+      "permissions": ["manage_users", "manage_roles", "view_all", "edit_all"]
+    },
+    {
+      "id": "2",
+      "name": "Manager",
+      "permissions": ["view_team", "edit_team", "view_all"]
+    },
+    {
+      "id": "3",
+      "name": "Employee",
+      "permissions": ["view_public", "edit_profile"]
+    }
+  ],
+  "permissions": [
+    {
+      "id": "1",
+      "name": "manage_users",
+      "description": "Can manage all user accounts"
+    },
+    {
+      "id": "2",
+      "name": "manage_roles",
+      "description": "Can manage role assignments"
+    },
+    {
+      "id": "3",
+      "name": "view_all",
+      "description": "Can view all employee data"
+    },
+    {
+      "id": "4",
+      "name": "edit_all",
+      "description": "Can edit all employee data"
+    },
+    {
+      "id": "5",
+      "name": "view_team",
+      "description": "Can view team members' data"
+    },
+    {
+      "id": "6",
+      "name": "edit_team",
+      "description": "Can edit team members' data"
+    },
+    {
+      "id": "7",
+      "name": "view_public",
+      "description": "Can view public employee data"
+    },
+    {
+      "id": "8",
+      "name": "edit_profile",
+      "description": "Can edit own profile"
+    }
+  ]
+} 
