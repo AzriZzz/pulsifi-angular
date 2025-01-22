@@ -6,6 +6,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -16,29 +17,42 @@ import { AuthService } from '../../../core/services/auth.service';
     ReactiveFormsModule,
     NzFormModule,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzSpinModule
   ],
   template: `
     <div class="login-container">
       <div class="login-form">
-        <h1>Employee Management Portal</h1>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Please input your email!">
-              <nz-input-group>
-                <input type="email" nz-input formControlName="email" placeholder="Email" />
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Please input your password!">
-              <nz-input-group>
-                <input type="password" nz-input formControlName="password" placeholder="Password" />
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-          <button nz-button nzType="primary" [disabled]="loginForm.invalid">Log in</button>
-        </form>
+        <nz-spin [nzSpinning]="isLoading">
+          <h1>Employee Management Portal</h1>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="emailError">
+                <nz-input-group>
+                  <input type="email" nz-input formControlName="email" placeholder="Email" />
+                </nz-input-group>
+                <ng-template #emailError let-control>
+                  <ng-container *ngIf="control.hasError('required')">Please input your email!</ng-container>
+                  <ng-container *ngIf="control.hasError('email')">Please input a valid email!</ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="passwordError">
+                <nz-input-group>
+                  <input type="password" nz-input formControlName="password" placeholder="Password" />
+                </nz-input-group>
+                <ng-template #passwordError let-control>
+                  <ng-container *ngIf="control.hasError('required')">Please input your password!</ng-container>
+                  <ng-container *ngIf="control.hasError('minlength')">Password must be at least 6 characters!</ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <button nz-button nzType="primary" [disabled]="loginForm.invalid || isLoading">
+              {{ isLoading ? 'Logging in...' : 'Log in' }}
+            </button>
+          </form>
+        </nz-spin>
       </div>
     </div>
   `,
@@ -76,19 +90,39 @@ export class LoginComponent {
   private router = inject(Router);
   private message = inject(NzMessageService);
 
+  isLoading = false;
+
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
+    password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
   async onSubmit() {
     if (this.loginForm.valid) {
+      this.isLoading = true;
       try {
-        await this.authService.login(this.loginForm.value);
-        await this.router.navigate(['/dashboard']);
+        const result = await this.authService.login(this.loginForm.value).toPromise();
+        if (result) {
+          const role = result.user.role.name.toLowerCase();
+          if (role === 'admin') {
+            await this.router.navigate(['/dashboard']);
+          } else {
+            await this.router.navigate(['/employees']);
+          }
+          this.message.success(`Welcome back, ${result.user.firstName}!`);
+        }
       } catch (error: any) {
-        this.message.error('Invalid email or password');
+        this.message.error('Invalid email or password. Please try again.');
+        console.error('Login error:', error);
+      } finally {
+        this.isLoading = false;
       }
+    } else {
+      Object.values(this.loginForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsTouched();
+        }
+      });
     }
   }
 } 

@@ -1,0 +1,38 @@
+{
+  "/auth/login": "/users?email=:email",
+  "/auth/refresh": "/auth/refresh",
+  "/auth/login\\?email=admin@example.com": {
+    "token": "mock-jwt-token",
+    "user": {
+      "id": "1",
+      "email": "admin@example.com",
+      "firstName": "Admin",
+      "lastName": "User",
+      "department": "IT",
+      "role": {
+        "id": "1",
+        "name": "Admin",
+        "permissions": ["manage_users", "manage_roles", "view_all", "edit_all"]
+      },
+      "startDate": "2024-01-01",
+      "status": "active"
+    }
+  },
+  "/auth/login\\?email=john.doe@example.com": {
+    "token": "mock-jwt-token",
+    "user": {
+      "id": "2",
+      "email": "john.doe@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "department": "Engineering",
+      "role": {
+        "id": "3",
+        "name": "Employee",
+        "permissions": ["view_public", "edit_profile"]
+      },
+      "startDate": "2024-01-01",
+      "status": "active"
+    }
+  }
+} 

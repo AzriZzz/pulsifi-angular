@@ -13,6 +13,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { AuthService } from '../services/auth.service';
 import { AcIfDirective } from '../../shared/directives/ac-if.directive';
+import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-design/icons-angular/icons';
 
 @Component({
   selector: 'app-layout',
@@ -59,7 +60,7 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
               routerLink="/dashboard"
               routerLinkActive="ant-menu-item-selected"
             >
-              <span nz-icon nzType="dashboard"></span>
+              <span nz-icon nzType="dashboard" nzTheme="outline"></span>
               <span>Dashboard</span>
             </li>
             <li
@@ -68,7 +69,7 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
               routerLink="/employees"
               routerLinkActive="ant-menu-item-selected"
             >
-              <span nz-icon nzType="team"></span>
+              <span nz-icon nzType="team" nzTheme="outline"></span>
               <span>Employees</span>
             </li>
             <li
@@ -77,7 +78,7 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
               routerLink="/roles"
               routerLinkActive="ant-menu-item-selected"
             >
-              <span nz-icon nzType="safety"></span>
+              <span nz-icon nzType="safety-certificate" nzTheme="outline"></span>
               <span>Roles</span>
             </li>
           </ul>

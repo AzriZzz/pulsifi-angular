@@ -1,7 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { User } from '../../shared/interfaces/user.interface';
 import { AuthResponse, LoginCredentials } from '../../shared/interfaces/api.interface';
 
@@ -102,7 +102,44 @@ export class AuthService {
 
   // Login
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>('/auth/login', credentials).pipe(
+    return this.http.get<any[]>('/users').pipe(
+      map(users => {
+        const user = users.find(u => 
+          u.email === credentials.email && 
+          u.password === credentials.password
+        );
+
+        if (!user) {
+          throw new Error('Invalid credentials');
+        }
+
+        // Create a token (in a real app, this would be done by the backend)
+        const token = btoa(JSON.stringify({ userId: user.id, timestamp: Date.now() }));
+
+        const response: AuthResponse = {
+          token,
+          user: {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            department: 'General', // Default department
+            role: {
+              id: '1',
+              name: user.role.name,
+              permissions: user.role.permissions.map((name: string) => ({
+                id: name,
+                name,
+                description: name
+              }))
+            },
+            startDate: new Date().toISOString(),
+            status: 'active'
+          }
+        };
+
+        return response;
+      }),
       tap(response => {
         this.setSession(response);
       })

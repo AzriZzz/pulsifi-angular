@@ -72,5 +72,29 @@
       "name": "edit_profile",
       "description": "Can edit own profile"
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@example.com",
+      "password": "admin123",
+      "firstName": "Admin",
+      "lastName": "User",
+      "role": {
+        "name": "Admin",
+        "permissions": ["manage_users", "manage_roles", "view_all", "edit_all"]
+      }
+    },
+    {
+      "id": "2",
+      "email": "employee@example.com",
+      "password": "employee123",
+      "firstName": "John",
+      "lastName": "Doe",
+      "role": {
+        "name": "Employee",
+        "permissions": ["view_public", "edit_profile"]
+      }
+    }
   ]
 } 
