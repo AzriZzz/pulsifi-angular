@@ -39,15 +39,23 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
           <span class="text-xl font-semibold">Employee Portal</span>
         </div>
         <div class="flex items-center">
-          <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
-            <div class="flex items-center cursor-pointer" nz-dropdown>
-              <nz-avatar [nzText]="userInitials()" nzSize="large"></nz-avatar>
-              <span class="ml-2">{{ userName() }}</span>
-            </div>
-            <ul nz-menu>
-              <li nz-menu-item (click)="logout()">Logout</li>
-            </ul>
-          </nz-dropdown>
+          <div>
+            <a nz-dropdown [nzDropdownMenu]="menu">
+              <div class="flex items-center cursor-pointer gap-2">
+                <nz-avatar [nzText]="userInitials()" nzSize="large"></nz-avatar>
+                <span>{{ userName() }}</span>
+                <span nz-icon nzType="down" nzTheme="outline"></span>
+              </div>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="logout()">
+                  <span nz-icon nzType="logout" nzTheme="outline"></span>
+                  <span class="ml-2">Logout</span>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
         </div>
       </nz-header>
 

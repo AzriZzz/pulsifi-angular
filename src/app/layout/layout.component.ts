@@ -18,16 +18,21 @@ import { AuthService } from '../core/services/auth.service';
     NzMenuModule,
     NzIconModule,
     NzDropDownModule,
-    NzAvatarModule
+    NzAvatarModule,
   ],
   template: `
     <nz-layout class="app-layout">
       <nz-header>
         <div class="header-content">
           <h1>Employee Management Portal</h1>
-          <div class="user-menu">
+          <div class="user-menu outline border border-red-500">
             <nz-avatar [nzText]="userInitials" nzSize="large"></nz-avatar>
-            <a nz-dropdown [nzDropdownMenu]="menu" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+            <a
+              nz-dropdown
+              [nzDropdownMenu]="menu"
+              [nzTrigger]="'click'"
+              [nzPlacement]="'bottomRight'"
+            >
               {{ userName }}
               <span nz-icon nzType="down"></span>
             </a>
@@ -42,15 +47,27 @@ import { AuthService } from '../core/services/auth.service';
       <nz-layout>
         <nz-sider nzWidth="200px">
           <ul nz-menu nzMode="inline">
-            <li nz-menu-item routerLink="/dashboard" routerLinkActive="ant-menu-item-selected">
+            <li
+              nz-menu-item
+              routerLink="/dashboard"
+              routerLinkActive="ant-menu-item-selected"
+            >
               <span nz-icon nzType="dashboard"></span>
               <span>Dashboard</span>
             </li>
-            <li nz-menu-item routerLink="/employees" routerLinkActive="ant-menu-item-selected">
+            <li
+              nz-menu-item
+              routerLink="/employees"
+              routerLinkActive="ant-menu-item-selected"
+            >
               <span nz-icon nzType="team"></span>
               <span>Employees</span>
             </li>
-            <li nz-menu-item routerLink="/roles" routerLinkActive="ant-menu-item-selected">
+            <li
+              nz-menu-item
+              routerLink="/roles"
+              routerLinkActive="ant-menu-item-selected"
+            >
               <span nz-icon nzType="safety"></span>
               <span>Roles</span>
             </li>
@@ -64,49 +81,51 @@ import { AuthService } from '../core/services/auth.service';
       </nz-layout>
     </nz-layout>
   `,
-  styles: [`
-    .app-layout {
-      min-height: 100vh;
-    }
-    nz-header {
-      background: #fff;
-      padding: 0;
-      box-shadow: 0 1px 4px rgba(0,21,41,.08);
-      position: relative;
-      z-index: 10;
-    }
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 24px;
-      height: 100%;
-    }
-    h1 {
-      margin: 0;
-      font-size: 18px;
-    }
-    .user-menu {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    nz-content {
-      margin: 24px;
-    }
-    .content-container {
-      padding: 24px;
-      background: #fff;
-      min-height: 360px;
-    }
-    nz-sider {
-      background: #fff;
-      border-right: 1px solid #f0f0f0;
-    }
-    [nz-menu] {
-      height: 100%;
-    }
-  `]
+  styles: [
+    `
+      .app-layout {
+        min-height: 100vh;
+      }
+      nz-header {
+        background: #fff;
+        padding: 0;
+        box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+        position: relative;
+        z-index: 10;
+      }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 24px;
+        height: 100%;
+      }
+      h1 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      nz-content {
+        margin: 24px;
+      }
+      .content-container {
+        padding: 24px;
+        background: #fff;
+        min-height: 360px;
+      }
+      nz-sider {
+        background: #fff;
+        border-right: 1px solid #f0f0f0;
+      }
+      [nz-menu] {
+        height: 100%;
+      }
+    `,
+  ],
 })
 export class LayoutComponent {
   private authService = inject(AuthService);
@@ -120,7 +139,7 @@ export class LayoutComponent {
     const name = this.userName;
     return name
       .split(' ')
-      .map(n => n[0])
+      .map((n) => n[0])
       .join('')
       .toUpperCase();
   }
@@ -128,4 +147,4 @@ export class LayoutComponent {
   logout() {
     this.authService.logout();
   }
-} 
+}
