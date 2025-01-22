@@ -52,7 +52,7 @@ import { User } from '../../shared/interfaces/user.interface';
             <td>{{ employee.role.name }}</td>
             <td>
               <nz-tag [nzColor]="employee.status === 'active' ? 'success' : 'error'">
-                {{ employee.status }}
+                {{ employee.status | titlecase }}
               </nz-tag>
             </td>
             <td>

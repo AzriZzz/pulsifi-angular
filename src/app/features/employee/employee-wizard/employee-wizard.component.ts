@@ -11,6 +11,7 @@ import { RoleAssignmentStepComponent } from './steps/role-assignment-step.compon
 import { SystemAccessStepComponent } from './steps/system-access-step.component';
 import { EmployeeValidationService } from '../services/employee-validation.service';
 import { finalize } from 'rxjs';
+import { EmployeeService } from '../services/employee.service';
 
 export interface WizardStep {
   title: string;
@@ -137,6 +138,7 @@ export class EmployeeWizardComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private validationService = inject(EmployeeValidationService);
+  private employeeService = inject(EmployeeService);
   private message = inject(NzMessageService);
 
   // Step management
@@ -281,10 +283,16 @@ export class EmployeeWizardComponent {
       try {
         await this.validateStep();
         // Submit form data
-        console.log('Form submitted:', this.formData());
-        this.message.success('Employee added successfully!');
-        // Navigate to listing page after successful submission
-        this.router.navigate(['/employees']);
+        const formData = this.formData();
+        this.employeeService.createEmployee(formData).subscribe({
+          next: () => {
+            this.message.success('Employee added successfully!');
+            this.router.navigate(['/employees']);
+          },
+          error: (error) => {
+            this.message.error('Failed to create employee. Please try again.');
+          }
+        });
       } catch (error) {
         this.message.error('Submission failed. Please try again.');
       } finally {

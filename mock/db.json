@@ -8,9 +8,29 @@
       "department": "Engineering",
       "role": {
         "name": "Employee",
-        "permissions": ["view_employees", "edit_profile"]
+        "permissions": [
+          "view_employees",
+          "edit_profile"
+        ]
       },
       "startDate": "2024-01-01",
+      "status": "active"
+    },
+    {
+      "id": "e1345f42-ace8-4cc3-bbbd-61c4d5967696",
+      "firstName": "Azri",
+      "lastName": "Zainal",
+      "email": "azri@gmail.com",
+      "department": "Engineering",
+      "role": {
+        "name": "Employee",
+        "permissions": [
+          "view_public",
+          "edit_profile",
+          "view_employees"
+        ]
+      },
+      "startDate": "2025-01-22",
       "status": "active"
     }
   ],
@@ -18,17 +38,34 @@
     {
       "id": "1",
       "name": "Admin",
-      "permissions": ["manage_users", "manage_roles", "view_all", "edit_all", "manage_employees", "view_employees"]
+      "permissions": [
+        "manage_users",
+        "manage_roles",
+        "view_all",
+        "edit_all",
+        "manage_employees",
+        "view_employees"
+      ]
     },
     {
       "id": "2",
       "name": "Manager",
-      "permissions": ["view_team", "edit_team", "view_all", "manage_employees", "view_employees"]
+      "permissions": [
+        "view_team",
+        "edit_team",
+        "view_all",
+        "manage_employees",
+        "view_employees"
+      ]
     },
     {
       "id": "3",
       "name": "Employee",
-      "permissions": ["view_public", "edit_profile", "view_employees"]
+      "permissions": [
+        "view_public",
+        "edit_profile",
+        "view_employees"
+      ]
     }
   ],
   "permissions": [
@@ -92,7 +129,14 @@
       "lastName": "User",
       "role": {
         "name": "Admin",
-        "permissions": ["manage_users", "manage_roles", "view_all", "edit_all", "manage_employees", "view_employees"]
+        "permissions": [
+          "manage_users",
+          "manage_roles",
+          "view_all",
+          "edit_all",
+          "manage_employees",
+          "view_employees"
+        ]
       }
     },
     {
@@ -103,7 +147,13 @@
       "lastName": "User",
       "role": {
         "name": "Manager",
-        "permissions": ["view_team", "edit_team", "view_all", "manage_employees", "view_employees"]
+        "permissions": [
+          "view_team",
+          "edit_team",
+          "view_all",
+          "manage_employees",
+          "view_employees"
+        ]
       }
     },
     {
@@ -114,7 +164,11 @@
       "lastName": "Doe",
       "role": {
         "name": "Employee",
-        "permissions": ["view_public", "edit_profile", "view_employees"]
+        "permissions": [
+          "view_public",
+          "edit_profile",
+          "view_employees"
+        ]
       }
     }
   ],
@@ -138,7 +192,10 @@
       "error": {
         "status": "error",
         "message": "Invalid department and role combination",
-        "fields": ["department", "role"]
+        "fields": [
+          "department",
+          "role"
+        ]
       }
     },
     "step3": {
@@ -160,4 +217,4 @@
       }
     }
   }
-} 
+}
