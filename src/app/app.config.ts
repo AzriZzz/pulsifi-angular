@@ -18,7 +18,10 @@ import {
   DownOutline,
   LogoutOutline,
   MenuFoldOutline,
-  MenuUnfoldOutline
+  MenuUnfoldOutline,
+  PlusOutline,
+  EditOutline,
+  DeleteOutline
 } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] = [
@@ -28,7 +31,10 @@ const icons: IconDefinition[] = [
   DownOutline,
   LogoutOutline,
   MenuFoldOutline,
-  MenuUnfoldOutline
+  MenuUnfoldOutline,
+  PlusOutline,
+  EditOutline,
+  DeleteOutline
 ];
 
 registerLocaleData(en);

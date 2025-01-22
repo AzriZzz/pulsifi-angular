@@ -71,7 +71,7 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
       <nz-layout class="min-h-screen pt-16">
         <!-- Sidebar -->
         <nz-sider
-          class="fixed left-0 h-full pt-16 transition-all duration-300 ease-in-out"
+          class="fixed left-0 h-full pt-2 transition-all duration-300 ease-in-out"
           [class.hidden]="!isSidebarOpen()"
           [class.lg:block]="true"
           [nzCollapsible]="true"

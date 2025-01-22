@@ -18,17 +18,17 @@
     {
       "id": "1",
       "name": "Admin",
-      "permissions": ["manage_users", "manage_roles", "view_all", "edit_all"]
+      "permissions": ["manage_users", "manage_roles", "view_all", "edit_all", "manage_employees", "view_employees"]
     },
     {
       "id": "2",
       "name": "Manager",
-      "permissions": ["view_team", "edit_team", "view_all"]
+      "permissions": ["view_team", "edit_team", "view_all", "manage_employees", "view_employees"]
     },
     {
       "id": "3",
       "name": "Employee",
-      "permissions": ["view_public", "edit_profile"]
+      "permissions": ["view_public", "edit_profile", "view_employees"]
     }
   ],
   "permissions": [
@@ -71,6 +71,16 @@
       "id": "8",
       "name": "edit_profile",
       "description": "Can edit own profile"
+    },
+    {
+      "id": "9",
+      "name": "manage_employees",
+      "description": "Can manage employees (add, edit, delete)"
+    },
+    {
+      "id": "10",
+      "name": "view_employees",
+      "description": "Can view employees list"
     }
   ],
   "users": [
@@ -82,19 +92,72 @@
       "lastName": "User",
       "role": {
         "name": "Admin",
-        "permissions": ["manage_users", "manage_roles", "view_all", "edit_all"]
+        "permissions": ["manage_users", "manage_roles", "view_all", "edit_all", "manage_employees", "view_employees"]
       }
     },
     {
       "id": "2",
+      "email": "manager@example.com",
+      "password": "manager123",
+      "firstName": "Manager",
+      "lastName": "User",
+      "role": {
+        "name": "Manager",
+        "permissions": ["view_team", "edit_team", "view_all", "manage_employees", "view_employees"]
+      }
+    },
+    {
+      "id": "3",
       "email": "employee@example.com",
       "password": "employee123",
       "firstName": "John",
       "lastName": "Doe",
       "role": {
         "name": "Employee",
-        "permissions": ["view_public", "edit_profile"]
+        "permissions": ["view_public", "edit_profile", "view_employees"]
       }
     }
-  ]
+  ],
+  "validation": {
+    "step1": {
+      "success": {
+        "status": "success",
+        "message": "Personal information validated successfully"
+      },
+      "error": {
+        "status": "error",
+        "message": "Email already exists",
+        "field": "email"
+      }
+    },
+    "step2": {
+      "success": {
+        "status": "success",
+        "message": "Role assignment validated successfully"
+      },
+      "error": {
+        "status": "error",
+        "message": "Invalid department and role combination",
+        "fields": ["department", "role"]
+      }
+    },
+    "step3": {
+      "success": {
+        "status": "success",
+        "message": "System access credentials validated successfully"
+      },
+      "error": {
+        "status": "error",
+        "message": "Password does not meet strength requirements",
+        "field": "password",
+        "requirements": {
+          "minLength": 8,
+          "uppercase": true,
+          "lowercase": true,
+          "number": true,
+          "special": true
+        }
+      }
+    }
+  }
 } 

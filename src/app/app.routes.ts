@@ -23,7 +23,7 @@ export const routes: Routes = [
       },
       {
         path: 'employees',
-        loadChildren: () => import('./features/employees/employees.routes').then(m => m.EMPLOYEE_ROUTES),
+        loadChildren: () => import('./features/employee/employee.module').then(m => m.EmployeeModule),
         canActivate: [permissionGuard],
         data: { permissions: ['view_employees'] },
       },
