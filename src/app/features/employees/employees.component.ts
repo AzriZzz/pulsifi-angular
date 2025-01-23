@@ -32,21 +32,13 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzPopconfirmModule,
     NzInputModule,
     NzSelectModule,
-    NzDatePickerModule
+    NzDatePickerModule,
   ],
   template: `
     <div class="employees-container">
       <div class="header">
         <h1 class="text-2xl font-semibold">Employees</h1>
         <div class="header-actions">
-          <button
-            nz-button
-            (click)="clearFilters()"
-            [disabled]="!hasActiveFilters()"
-          >
-            <i nz-icon nzType="clear" nzTheme="outline"></i>
-            Clear Filters
-          </button>
           <button
             nz-button
             nzType="primary"
@@ -61,55 +53,73 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
       <!-- Filters -->
       <div class="filters">
-        <input
-          nz-input
-          placeholder="Search by name"
-          [(ngModel)]="nameFilter"
-          (ngModelChange)="applyFilters()"
-        />
+        <div class="filters-header">
+          <h2 class="text-lg font-medium">Filters</h2>
+        </div>
 
-        <nz-select
-          nzPlaceHolder="Department"
-          [(ngModel)]="departmentFilter"
-          (ngModelChange)="applyFilters()"
-        >
-          <nz-option nzValue="" nzLabel="All Departments"></nz-option>
-          <nz-option
-            *ngFor="let dept of departments()"
-            [nzValue]="dept"
-            [nzLabel]="dept"
-          ></nz-option>
-        </nz-select>
+        <div class="filters-content">
+          <input
+            nz-input
+            placeholder="Search by name"
+            [(ngModel)]="nameFilter"
+            (ngModelChange)="applyFilters()"
+          />
 
-        <nz-select
-          nzPlaceHolder="Role"
-          [(ngModel)]="roleFilter"
-          (ngModelChange)="applyFilters()"
-        >
-          <nz-option nzValue="" nzLabel="All Roles"></nz-option>
-          <nz-option
-            *ngFor="let role of roles()"
-            [nzValue]="role"
-            [nzLabel]="role"
-          ></nz-option>
-        </nz-select>
+          <nz-select
+            nzPlaceHolder="Department"
+            [(ngModel)]="departmentFilter"
+            (ngModelChange)="applyFilters()"
+          >
+            <nz-option nzValue="" nzLabel="All Departments"></nz-option>
+            <nz-option
+              *ngFor="let dept of departments()"
+              [nzValue]="dept"
+              [nzLabel]="dept"
+            ></nz-option>
+          </nz-select>
 
-        <nz-select
-          nzPlaceHolder="Status"
-          [(ngModel)]="statusFilter"
-          (ngModelChange)="applyFilters()"
-        >
-          <nz-option nzValue="" nzLabel="All Status"></nz-option>
-          <nz-option nzValue="active" nzLabel="Active"></nz-option>
-          <nz-option nzValue="inactive" nzLabel="Inactive"></nz-option>
-        </nz-select>
+          <nz-select
+            nzPlaceHolder="Role"
+            [(ngModel)]="roleFilter"
+            (ngModelChange)="applyFilters()"
+          >
+            <nz-option nzValue="" nzLabel="All Roles"></nz-option>
+            <nz-option
+              *ngFor="let role of roles()"
+              [nzValue]="role"
+              [nzLabel]="role"
+            ></nz-option>
+          </nz-select>
 
-        <nz-range-picker
-          [(ngModel)]="dateRange"
-          (ngModelChange)="applyFilters()"
-          [nzAllowClear]="true"
-          nzPlaceHolder="['Start Date', 'End Date']"
-        ></nz-range-picker>
+          <nz-select
+            nzPlaceHolder="Status"
+            [(ngModel)]="statusFilter"
+            (ngModelChange)="applyFilters()"
+          >
+            <nz-option nzValue="" nzLabel="All Status"></nz-option>
+            <nz-option nzValue="active" nzLabel="Active"></nz-option>
+            <nz-option nzValue="inactive" nzLabel="Inactive"></nz-option>
+          </nz-select>
+
+          <nz-range-picker
+            [(ngModel)]="dateRange"
+            (ngModelChange)="applyFilters()"
+            [nzAllowClear]="true"
+            nzPlaceHolder="['Start Date', 'End Date']"
+          ></nz-range-picker>
+        </div>
+
+        <div class="filters-actions">
+          <button
+            nz-button
+            (click)="clearFilters()"
+            [disabled]="!hasActiveFilters()"
+          >
+            <i nz-icon nzType="clear" nzTheme="outline"></i>
+
+            Clear Filters
+          </button>
+        </div>
       </div>
 
       <nz-table
@@ -193,24 +203,36 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
         gap: 16px;
       }
       .filters {
-        display: flex;
-        gap: 16px;
-        margin-bottom: 24px;
         background: #fff;
         padding: 16px;
         border-radius: 4px;
+        margin-bottom: 24px;
       }
-      .filters > * {
-        width: 200px;
+      .filters-header {
+        margin-bottom: 16px;
       }
-      h1 {
+      .filters-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+      }
+      .filters-content > * {
+        width: 100%;
+      }
+      .filters-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 24px;
+      }
+      nz-range-picker {
+        width: 100% !important;
+      }
+      h1,
+      h2 {
         margin: 0;
       }
       :host ::ng-deep .ant-table-tbody > tr > td {
         vertical-align: middle;
-      }
-      nz-range-picker {
-        width: 280px !important;
       }
     `,
   ],
@@ -269,7 +291,7 @@ export class EmployeesComponent implements OnDestroy {
       statusFilter: this.statusFilter,
       dateRange: this.dateRange,
       pageSize: this.pageSize,
-      dateSortOrder: this.dateSortOrder
+      dateSortOrder: this.dateSortOrder,
     };
     this.filterService.saveFilterState(state);
   }
@@ -350,7 +372,7 @@ export class EmployeesComponent implements OnDestroy {
     if (this.dateRange[0] && this.dateRange[1]) {
       const startDate = this.dateRange[0].getTime();
       const endDate = this.dateRange[1].getTime();
-      filtered = filtered.filter(emp => {
+      filtered = filtered.filter((emp) => {
         if (!emp.startDate) return false;
         const empDate = new Date(emp.startDate).getTime();
         return empDate >= startDate && empDate <= endDate;
