@@ -149,7 +149,7 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
             >
               Start Date
             </th>
-            <th>Actions</th>
+            <th *ngIf="canManageEmployees">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -165,11 +165,10 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
               </nz-tag>
             </td>
             <td>{{ employee.startDate | date : 'mediumDate' }}</td>
-            <td>
+            <td *ngIf="canManageEmployees">
               <button
                 nz-button
                 nzType="link"
-                *ngIf="canManageEmployees"
                 (click)="editEmployee(employee.id)"
               >
                 <i nz-icon nzType="edit"></i>
@@ -178,7 +177,6 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
                 nz-button
                 nzType="link"
                 nzDanger
-                *ngIf="canManageEmployees"
                 nz-popconfirm
                 nzPopconfirmTitle="Are you sure you want to delete this employee?"
                 (nzOnConfirm)="deleteEmployee(employee.id)"
