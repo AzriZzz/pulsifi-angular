@@ -13,7 +13,10 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { AuthService } from '../../core/services/auth.service';
 import { EmployeeService } from '../employee/services/employee.service';
 import { Employee } from '../../shared/interfaces/user.interface';
-import { EmployeeFilterService, EmployeeFilterState } from './services/employee-filter.service';
+import {
+  EmployeeFilterService,
+  EmployeeFilterState,
+} from './services/employee-filter.service';
 
 @Component({
   selector: 'app-employees',
@@ -27,25 +30,27 @@ import { EmployeeFilterService, EmployeeFilterState } from './services/employee-
     NzIconModule,
     NzPopconfirmModule,
     NzInputModule,
-    NzSelectModule
+    NzSelectModule,
   ],
   template: `
     <div class="employees-container">
       <div class="header">
-        <h1>Employees</h1>
+        <h1 class="text-2xl font-semibold">Employees</h1>
         <div class="header-actions">
-          <button 
-            nz-button 
+          <button
+            nz-button
             (click)="clearFilters()"
-            [disabled]="!hasActiveFilters()">
+            [disabled]="!hasActiveFilters()"
+          >
             <i nz-icon nzType="clear" nzTheme="outline"></i>
             Clear Filters
           </button>
-          <button 
-            nz-button 
+          <button
+            nz-button
             nzType="primary"
             *ngIf="canManageEmployees"
-            (click)="addEmployee()">
+            (click)="addEmployee()"
+          >
             <i nz-icon nzType="plus"></i>
             Add Employee
           </button>
@@ -54,57 +59,71 @@ import { EmployeeFilterService, EmployeeFilterState } from './services/employee-
 
       <!-- Filters -->
       <div class="filters">
-        <input 
-          nz-input 
+        <input
+          nz-input
           placeholder="Search by name"
           [(ngModel)]="nameFilter"
-          (ngModelChange)="applyFilters()" />
-        
-        <nz-select 
-          nzPlaceHolder="Department" 
+          (ngModelChange)="applyFilters()"
+        />
+
+        <nz-select
+          nzPlaceHolder="Department"
           [(ngModel)]="departmentFilter"
-          (ngModelChange)="applyFilters()">
+          (ngModelChange)="applyFilters()"
+        >
           <nz-option nzValue="" nzLabel="All Departments"></nz-option>
-          <nz-option *ngFor="let dept of departments()" [nzValue]="dept" [nzLabel]="dept"></nz-option>
+          <nz-option
+            *ngFor="let dept of departments()"
+            [nzValue]="dept"
+            [nzLabel]="dept"
+          ></nz-option>
         </nz-select>
 
-        <nz-select 
-          nzPlaceHolder="Role" 
+        <nz-select
+          nzPlaceHolder="Role"
           [(ngModel)]="roleFilter"
-          (ngModelChange)="applyFilters()">
+          (ngModelChange)="applyFilters()"
+        >
           <nz-option nzValue="" nzLabel="All Roles"></nz-option>
-          <nz-option *ngFor="let role of roles()" [nzValue]="role" [nzLabel]="role"></nz-option>
+          <nz-option
+            *ngFor="let role of roles()"
+            [nzValue]="role"
+            [nzLabel]="role"
+          ></nz-option>
         </nz-select>
 
-        <nz-select 
-          nzPlaceHolder="Status" 
+        <nz-select
+          nzPlaceHolder="Status"
           [(ngModel)]="statusFilter"
-          (ngModelChange)="applyFilters()">
+          (ngModelChange)="applyFilters()"
+        >
           <nz-option nzValue="" nzLabel="All Status"></nz-option>
           <nz-option nzValue="active" nzLabel="Active"></nz-option>
           <nz-option nzValue="inactive" nzLabel="Inactive"></nz-option>
         </nz-select>
       </div>
 
-      <nz-table 
-        #basicTable 
-        [nzData]="filteredEmployees()" 
+      <nz-table
+        #basicTable
+        [nzData]="filteredEmployees()"
         [nzLoading]="loading()"
         [nzPageSize]="pageSize"
-        [nzPageSizeOptions]="[5,10,25]"
+        [nzPageSizeOptions]="[5, 10, 25]"
         [nzShowSizeChanger]="true"
-        (nzPageSizeChange)="onPageSizeChange($event)">
+        (nzPageSizeChange)="onPageSizeChange($event)"
+      >
         <thead>
           <tr>
             <th>Name</th>
             <th>Department</th>
             <th>Role</th>
             <th>Status</th>
-            <th 
-              nzColumnKey="startDate" 
+            <th
+              nzColumnKey="startDate"
               [nzSortFn]="true"
               [nzSortOrder]="dateSortOrder"
-              (nzSortOrderChange)="onDateSort($event)">
+              (nzSortOrderChange)="onDateSort($event)"
+            >
               Start Date
             </th>
             <th>Actions</th>
@@ -116,27 +135,31 @@ import { EmployeeFilterService, EmployeeFilterState } from './services/employee-
             <td>{{ employee.department }}</td>
             <td>{{ employee.role.name }}</td>
             <td>
-              <nz-tag [nzColor]="employee.status === 'active' ? 'success' : 'error'">
+              <nz-tag
+                [nzColor]="employee.status === 'active' ? 'success' : 'error'"
+              >
                 {{ employee.status | titlecase }}
               </nz-tag>
             </td>
-            <td>{{ employee.startDate | date:'mediumDate' }}</td>
+            <td>{{ employee.startDate | date : 'mediumDate' }}</td>
             <td>
-              <button 
-                nz-button 
-                nzType="link" 
+              <button
+                nz-button
+                nzType="link"
                 *ngIf="canManageEmployees"
-                (click)="editEmployee(employee.id)">
+                (click)="editEmployee(employee.id)"
+              >
                 <i nz-icon nzType="edit"></i>
               </button>
-              <button 
-                nz-button 
-                nzType="link" 
+              <button
+                nz-button
+                nzType="link"
                 nzDanger
                 *ngIf="canManageEmployees"
                 nz-popconfirm
                 nzPopconfirmTitle="Are you sure you want to delete this employee?"
-                (nzOnConfirm)="deleteEmployee(employee.id)">
+                (nzOnConfirm)="deleteEmployee(employee.id)"
+              >
                 <i nz-icon nzType="delete"></i>
               </button>
             </td>
@@ -145,35 +168,40 @@ import { EmployeeFilterService, EmployeeFilterState } from './services/employee-
       </nz-table>
     </div>
   `,
-  styles: [`
-    .employees-container {
-      padding: 24px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-    .header-actions {
-      display: flex;
-      gap: 16px;
-    }
-    .filters {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .filters > * {
-      width: 200px;
-    }
-    h1 {
-      margin: 0;
-    }
-    :host ::ng-deep .ant-table-tbody > tr > td {
-      vertical-align: middle;
-    }
-  `]
+  styles: [
+    `
+      .employees-container {
+        padding: 24px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      .header-actions {
+        display: flex;
+        gap: 16px;
+      }
+      .filters {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        background: #fff;
+        padding: 16px;
+        border-radius: 4px;
+      }
+      .filters > * {
+        width: 200px;
+      }
+      h1 {
+        margin: 0;
+      }
+      :host ::ng-deep .ant-table-tbody > tr > td {
+        vertical-align: middle;
+      }
+    `,
+  ],
 })
 export class EmployeesComponent implements OnDestroy {
   private router = inject(Router);
@@ -226,7 +254,7 @@ export class EmployeesComponent implements OnDestroy {
       roleFilter: this.roleFilter,
       statusFilter: this.statusFilter,
       pageSize: this.pageSize,
-      dateSortOrder: this.dateSortOrder
+      dateSortOrder: this.dateSortOrder,
     };
     this.filterService.saveFilterState(state);
   }
@@ -264,38 +292,40 @@ export class EmployeesComponent implements OnDestroy {
         console.error('Error loading employees:', error);
         this.message.error('Failed to load employees. Please try again.');
         this.loading.set(false);
-      }
+      },
     });
   }
 
   private updateFilterOptions(employees: Employee[]): void {
-    const departments = new Set(employees.map(emp => emp.department));
-    const roles = new Set(employees.map(emp => emp.role.name));
-    
+    const departments = new Set(employees.map((emp) => emp.department));
+    const roles = new Set(employees.map((emp) => emp.role.name));
+
     this.departments.set(Array.from(departments));
     this.roles.set(Array.from(roles));
   }
 
   applyFilters(): void {
     let filtered = this.employees();
-    
+
     if (this.nameFilter) {
       const searchTerm = this.nameFilter.toLowerCase();
-      filtered = filtered.filter(emp => 
+      filtered = filtered.filter((emp) =>
         `${emp.firstName} ${emp.lastName}`.toLowerCase().includes(searchTerm)
       );
     }
 
     if (this.departmentFilter) {
-      filtered = filtered.filter(emp => emp.department === this.departmentFilter);
+      filtered = filtered.filter(
+        (emp) => emp.department === this.departmentFilter
+      );
     }
 
     if (this.roleFilter) {
-      filtered = filtered.filter(emp => emp.role.name === this.roleFilter);
+      filtered = filtered.filter((emp) => emp.role.name === this.roleFilter);
     }
 
     if (this.statusFilter) {
-      filtered = filtered.filter(emp => emp.status === this.statusFilter);
+      filtered = filtered.filter((emp) => emp.status === this.statusFilter);
     }
 
     if (this.dateSortOrder) {
@@ -339,7 +369,7 @@ export class EmployeesComponent implements OnDestroy {
         console.error('Error deleting employee:', error);
         this.message.error('Failed to delete employee. Please try again.');
         this.loading.set(false);
-      }
+      },
     });
   }
-} 
+}

@@ -32,6 +32,36 @@
       },
       "startDate": "2025-01-22",
       "status": "active"
+    },
+    {
+      "id": "9288f3c2-6fbd-4eb9-a20c-75b1013fc78b",
+      "firstName": "Safwan",
+      "lastName": "Helmi",
+      "email": "safwan@gmail.com",
+      "department": "HR",
+      "role": {
+        "id": "e89f3ae3-32ed-43a2-9c63-21dfa59ec992",
+        "name": "Manager",
+        "permissions": [
+          {
+            "id": "e0a1badc-c30d-43b8-9841-1c1241237bc3",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "4278fa46-b939-4d1e-9323-8f6cb9bd70ed",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "a3627c2b-559e-46ca-8f33-583005ae94d9",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2025-01-31",
+      "status": "active"
     }
   ],
   "roles": [
