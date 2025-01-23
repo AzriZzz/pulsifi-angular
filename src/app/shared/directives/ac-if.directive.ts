@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, inject, signal, effect } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 
 export interface AcIfContext {
@@ -15,23 +15,33 @@ export class AcIfDirective {
   private readonly templateRef = inject(TemplateRef<AcIfContext>);
   private readonly viewContainer = inject(ViewContainerRef);
 
-  private context: AcIfContext = {
+  private readonly hasPermission = signal<boolean>(false);
+  private readonly context: AcIfContext = {
     $implicit: false,
     acIf: false,
   };
 
+  constructor() {
+    // Create an effect to handle view updates when permission changes
+    effect(() => {
+      const permitted = this.hasPermission();
+      
+      this.context.$implicit = this.context.acIf = permitted;
+      this.viewContainer.clear();
+
+      if (permitted) {
+        this.viewContainer.createEmbeddedView(this.templateRef, this.context);
+      }
+    });
+  }
+
   @Input()
   set acIf(permissions: string | string[]) {
-    const hasPermission = Array.isArray(permissions)
+    const permitted = Array.isArray(permissions)
       ? this.auth.hasAnyPermission(permissions)
       : this.auth.hasPermission(permissions);
 
-    this.context.$implicit = this.context.acIf = hasPermission;
-    this.viewContainer.clear();
-
-    if (hasPermission) {
-      this.viewContainer.createEmbeddedView(this.templateRef, this.context);
-    }
+    this.hasPermission.set(permitted);
   }
 
   static ngTemplateContextGuard(

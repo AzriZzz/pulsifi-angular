@@ -20,6 +20,7 @@ import {
 } from './services/employee-filter.service';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { EmployeeEditModalComponent } from './components/employee-edit-modal.component';
+import { AcIfDirective } from '../../shared/directives/ac-if.directive';
 
 @Component({
   selector: 'app-employees',
@@ -36,7 +37,8 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
     NzSelectModule,
     NzDatePickerModule,
     NzModalModule,
-    EmployeeEditModalComponent
+    EmployeeEditModalComponent,
+    AcIfDirective
   ],
   template: `
     <div class="employees-container">
@@ -46,7 +48,7 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
           <button
             nz-button
             nzType="primary"
-            *ngIf="canManageEmployees"
+            *acIf="'manage_employees'"
             (click)="addEmployee()"
           >
             <i nz-icon nzType="plus"></i>
@@ -120,7 +122,6 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
             [disabled]="!hasActiveFilters()"
           >
             <i nz-icon nzType="clear" nzTheme="outline"></i>
-
             Clear Filters
           </button>
         </div>
@@ -149,7 +150,7 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
             >
               Start Date
             </th>
-            <th *ngIf="canManageEmployees">Actions</th>
+            <th *acIf="'manage_employees'">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -165,7 +166,7 @@ import { EmployeeEditModalComponent } from './components/employee-edit-modal.com
               </nz-tag>
             </td>
             <td>{{ employee.startDate | date : 'mediumDate' }}</td>
-            <td *ngIf="canManageEmployees">
+            <td *acIf="'manage_employees'">
               <button
                 nz-button
                 nzType="link"
@@ -269,10 +270,6 @@ export class EmployeesComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.saveFilterState();
-  }
-
-  get canManageEmployees(): boolean {
-    return this.authService.hasPermission('manage_employees');
   }
 
   private loadSavedFilterState(): void {
