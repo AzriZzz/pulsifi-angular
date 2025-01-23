@@ -150,7 +150,7 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
             >
               Start Date
             </th>
-            <th *acIf="'manage_employees'">Actions</th>
+            <th *acIf="'manage_employees'" class="actions-column">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -166,7 +166,7 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
               </nz-tag>
             </td>
             <td>{{ employee.startDate | date : 'mediumDate' }}</td>
-            <td *acIf="'manage_employees'">
+            <td *acIf="'manage_employees'" class="actions-column">
               <button
                 nz-button
                 nzType="link"
@@ -226,6 +226,9 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
         display: flex;
         justify-content: flex-end;
         margin-top: 24px;
+      }
+      .actions-column {
+        text-align: right;
       }
       nz-range-picker {
         width: 100% !important;
