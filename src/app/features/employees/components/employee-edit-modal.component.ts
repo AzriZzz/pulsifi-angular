@@ -48,13 +48,6 @@ import { EmployeeService } from '../../employee/services/employee.service';
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">Password</nz-form-label>
-        <nz-form-control [nzSpan]="14">
-          <input nz-input formControlName="password" placeholder="Leave blank to keep current password" type="password" />
-        </nz-form-control>
-      </nz-form-item>
-
       <ng-container *ngIf="canEditAllFields">
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Department</nz-form-label>
@@ -137,7 +130,6 @@ export class EmployeeEditModalComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: [''],
       department: [{ value: '', disabled: !this.canEditAllFields }],
       role: [{ value: '', disabled: !this.canEditAllFields }],
       status: [{ value: '', disabled: !this.canEditAllFields }],
@@ -158,6 +150,10 @@ export class EmployeeEditModalComponent {
     }
   }
 
+  onCancel(): void {
+    this.modal.close();
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
       const formValue = this.form.value;
@@ -172,8 +168,7 @@ export class EmployeeEditModalComponent {
         role: {
           ...this.employee.role,
           name: formValue.role
-        },
-        ...(formValue.password ? { password: formValue.password } : {})
+        }
       };
 
       this.employeeService.updateEmployee(this.employee.id, updatedEmployee).subscribe({
@@ -187,9 +182,5 @@ export class EmployeeEditModalComponent {
         }
       });
     }
-  }
-
-  onCancel(): void {
-    this.modal.close();
   }
 } 
