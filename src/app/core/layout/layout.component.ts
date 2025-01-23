@@ -85,11 +85,19 @@ import {
       </nz-header>
 
       <nz-layout class="min-h-screen pt-16">
+        <!-- Overlay -->
+        <div 
+          *ngIf="isSidebarOpen() && isMobile()"
+          class="fixed top-16 bottom-0 left-0 right-0 bg-black bg-opacity-50 z-10 transition-opacity duration-300"
+          (click)="toggleSidebar()"
+        ></div>
+
         <!-- Sidebar -->
         <nz-sider
-          class="fixed left-0 h-full pt-2 transition-all duration-300 ease-in-out"
+          class="fixed left-0 top-16 h-[calc(100vh-64px)] pt-2 transition-all duration-300 ease-in-out"
           [class.hidden]="!isSidebarOpen()"
           [class.lg:block]="true"
+          [class.z-20]="isMobile()"
           [nzCollapsible]="true"
           [nzCollapsed]="isCollapsed()"
           (nzCollapsedChange)="onCollapse($event)"
@@ -148,7 +156,6 @@ import {
 
       nz-sider {
         background: #fff;
-        z-index: 5;
       }
 
       nz-content {
@@ -161,6 +168,10 @@ import {
           margin-left: 0 !important;
         }
       }
+
+      .bg-opacity-50 {
+        --tw-bg-opacity: 0.5;
+      }
     `,
   ],
 })
@@ -170,7 +181,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly iconService = inject(NzIconService);
   
-  private readonly isMobile = signal<boolean>(false);
+  readonly isMobile = signal<boolean>(false);
   private readonly sidebarOpen = signal<boolean>(false);
   private readonly collapsed = signal<boolean>(false);
 

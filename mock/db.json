@@ -2,7 +2,7 @@
   "employees": [
     {
       "id": "1",
-      "firstName": "John",
+      "firstName": "Johnwick",
       "lastName": "Slug",
       "email": "john.slug@example.com",
       "department": "Engineering",
@@ -216,41 +216,6 @@
         ]
       },
       "startDate": "2023-04-01",
-      "status": "active"
-    },
-    {
-      "id": "9",
-      "firstName": "Lisa",
-      "lastName": "Garcia",
-      "email": "l.garcia@company.com",
-      "department": "Marketing",
-      "role": {
-        "id": "role-5",
-        "name": "Marketing Manager",
-        "permissions": [
-          {
-            "id": "perm-1",
-            "name": "view_public",
-            "description": "Permission to view_public"
-          },
-          {
-            "id": "perm-2",
-            "name": "edit_profile",
-            "description": "Permission to edit_profile"
-          },
-          {
-            "id": "perm-3",
-            "name": "view_employees",
-            "description": "Permission to view_employees"
-          },
-          {
-            "id": "perm-4",
-            "name": "manage_employees",
-            "description": "Permission to manage employees"
-          }
-        ]
-      },
-      "startDate": "2023-05-15",
       "status": "active"
     },
     {
@@ -471,6 +436,36 @@
         ]
       },
       "startDate": "2025-01-31",
+      "status": "inactive"
+    },
+    {
+      "id": "305299bd-103f-4e71-af64-62b9cb3e96b7",
+      "firstName": "kumon",
+      "lastName": "saifon",
+      "email": "kumon@example.com",
+      "department": "Marketing",
+      "role": {
+        "id": "f74471aa-7df5-443c-88f3-759896c6ca75",
+        "name": "Marketing Manager",
+        "permissions": [
+          {
+            "id": "2db8b993-d12d-44c1-a46a-47bd8e8609f8",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "3f58c9e7-789d-4241-9b8c-86b4dfbe3e29",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "df167487-db69-498a-b604-87a68a65abba",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2025-01-24",
       "status": "inactive"
     }
   ],
