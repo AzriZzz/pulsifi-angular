@@ -6,6 +6,7 @@ export interface EmployeeFilterState {
   departmentFilter: string;
   roleFilter: string;
   statusFilter: string;
+  dateRange: [Date | null, Date | null];
   pageSize: number;
   dateSortOrder: NzTableSortOrder;
 }
@@ -15,6 +16,7 @@ const DEFAULT_FILTER_STATE: EmployeeFilterState = {
   departmentFilter: '',
   roleFilter: '',
   statusFilter: '',
+  dateRange: [null, null],
   pageSize: 10,
   dateSortOrder: null
 };
@@ -26,7 +28,14 @@ export class EmployeeFilterService {
   private readonly STORAGE_KEY = 'employee_filter_state';
 
   saveFilterState(state: EmployeeFilterState): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(state));
+    const stateToSave = {
+      ...state,
+      dateRange: state.dateRange ? [
+        state.dateRange[0]?.toISOString(),
+        state.dateRange[1]?.toISOString()
+      ] : [null, null]
+    };
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(stateToSave));
   }
 
   loadFilterState(): EmployeeFilterState {
@@ -36,7 +45,14 @@ export class EmployeeFilterService {
     }
 
     try {
-      return JSON.parse(savedState);
+      const parsedState = JSON.parse(savedState);
+      return {
+        ...parsedState,
+        dateRange: parsedState.dateRange ? [
+          parsedState.dateRange[0] ? new Date(parsedState.dateRange[0]) : null,
+          parsedState.dateRange[1] ? new Date(parsedState.dateRange[1]) : null
+        ] : [null, null]
+      };
     } catch {
       return DEFAULT_FILTER_STATE;
     }

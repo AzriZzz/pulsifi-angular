@@ -17,6 +17,7 @@ import {
   EmployeeFilterService,
   EmployeeFilterState,
 } from './services/employee-filter.service';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @Component({
   selector: 'app-employees',
@@ -31,6 +32,7 @@ import {
     NzPopconfirmModule,
     NzInputModule,
     NzSelectModule,
+    NzDatePickerModule
   ],
   template: `
     <div class="employees-container">
@@ -101,6 +103,13 @@ import {
           <nz-option nzValue="active" nzLabel="Active"></nz-option>
           <nz-option nzValue="inactive" nzLabel="Inactive"></nz-option>
         </nz-select>
+
+        <nz-range-picker
+          [(ngModel)]="dateRange"
+          (ngModelChange)="applyFilters()"
+          [nzAllowClear]="true"
+          nzPlaceHolder="['Start Date', 'End Date']"
+        ></nz-range-picker>
       </div>
 
       <nz-table
@@ -200,6 +209,9 @@ import {
       :host ::ng-deep .ant-table-tbody > tr > td {
         vertical-align: middle;
       }
+      nz-range-picker {
+        width: 280px !important;
+      }
     `,
   ],
 })
@@ -223,6 +235,7 @@ export class EmployeesComponent implements OnDestroy {
   statusFilter = '';
   pageSize = 10;
   dateSortOrder: NzTableSortOrder = null;
+  dateRange: [Date | null, Date | null] = [null, null];
 
   constructor() {
     this.loadSavedFilterState();
@@ -243,6 +256,7 @@ export class EmployeesComponent implements OnDestroy {
     this.departmentFilter = savedState.departmentFilter;
     this.roleFilter = savedState.roleFilter;
     this.statusFilter = savedState.statusFilter;
+    this.dateRange = savedState.dateRange;
     this.pageSize = savedState.pageSize;
     this.dateSortOrder = savedState.dateSortOrder;
   }
@@ -253,8 +267,9 @@ export class EmployeesComponent implements OnDestroy {
       departmentFilter: this.departmentFilter,
       roleFilter: this.roleFilter,
       statusFilter: this.statusFilter,
+      dateRange: this.dateRange,
       pageSize: this.pageSize,
-      dateSortOrder: this.dateSortOrder,
+      dateSortOrder: this.dateSortOrder
     };
     this.filterService.saveFilterState(state);
   }
@@ -265,6 +280,8 @@ export class EmployeesComponent implements OnDestroy {
       this.departmentFilter ||
       this.roleFilter ||
       this.statusFilter ||
+      this.dateRange[0] ||
+      this.dateRange[1] ||
       this.dateSortOrder
     );
   }
@@ -274,6 +291,7 @@ export class EmployeesComponent implements OnDestroy {
     this.departmentFilter = '';
     this.roleFilter = '';
     this.statusFilter = '';
+    this.dateRange = [null, null];
     this.dateSortOrder = null;
     this.filterService.clearFilterState();
     this.applyFilters();
@@ -326,6 +344,17 @@ export class EmployeesComponent implements OnDestroy {
 
     if (this.statusFilter) {
       filtered = filtered.filter((emp) => emp.status === this.statusFilter);
+    }
+
+    // Date range filter
+    if (this.dateRange[0] && this.dateRange[1]) {
+      const startDate = this.dateRange[0].getTime();
+      const endDate = this.dateRange[1].getTime();
+      filtered = filtered.filter(emp => {
+        if (!emp.startDate) return false;
+        const empDate = new Date(emp.startDate).getTime();
+        return empDate >= startDate && empDate <= endDate;
+      });
     }
 
     if (this.dateSortOrder) {
