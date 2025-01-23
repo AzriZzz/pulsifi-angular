@@ -3,17 +3,17 @@
     {
       "id": "1",
       "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
+      "lastName": "Slug",
+      "email": "john.slug@example.com",
       "department": "Engineering",
       "role": {
-        "name": "Employee",
+        "name": "Manager",
         "permissions": [
           "view_employees",
           "edit_profile"
         ]
       },
-      "startDate": "2024-01-01",
+      "startDate": "2024-01-01T00:00:00.000Z",
       "status": "active"
     },
     {
@@ -55,6 +55,36 @@
           },
           {
             "id": "a3627c2b-559e-46ca-8f33-583005ae94d9",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2025-01-31",
+      "status": "active"
+    },
+    {
+      "id": "35191a7a-6403-49ff-ace4-29811964d897",
+      "firstName": "Keris",
+      "lastName": "Melaya",
+      "email": "keris@gmail.com",
+      "department": "Finance",
+      "role": {
+        "id": "3d025e4f-9157-4fac-8135-591c03cd8c55",
+        "name": "Admin",
+        "permissions": [
+          {
+            "id": "162732fe-8d21-47a8-8de4-6a9829a6120b",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "520f2573-d609-4ad0-8559-9dc3e3005b32",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "b1dfaebd-a470-4665-b24e-560f8207de18",
             "name": "view_employees",
             "description": "Permission to view_employees"
           }

@@ -10,6 +10,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { AuthService } from '../../core/services/auth.service';
 import { EmployeeService } from '../employee/services/employee.service';
 import { Employee } from '../../shared/interfaces/user.interface';
@@ -18,6 +19,7 @@ import {
   EmployeeFilterState,
 } from './services/employee-filter.service';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { EmployeeEditModalComponent } from './components/employee-edit-modal.component';
 
 @Component({
   selector: 'app-employees',
@@ -33,6 +35,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzInputModule,
     NzSelectModule,
     NzDatePickerModule,
+    NzModalModule,
+    EmployeeEditModalComponent
   ],
   template: `
     <div class="employees-container">
@@ -152,7 +156,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
           <tr *ngFor="let employee of basicTable.data">
             <td>{{ employee.firstName }} {{ employee.lastName }}</td>
             <td>{{ employee.department }}</td>
-            <td>{{ employee.role.name }}</td>
+            <td>{{ employee.role?.name || '-' }}</td>
             <td>
               <nz-tag
                 [nzColor]="employee.status === 'active' ? 'success' : 'error'"
@@ -243,6 +247,7 @@ export class EmployeesComponent implements OnDestroy {
   private employeeService = inject(EmployeeService);
   private message = inject(NzMessageService);
   private filterService = inject(EmployeeFilterService);
+  private modal = inject(NzModalService);
 
   readonly employees = signal<Employee[]>([]);
   readonly filteredEmployees = signal<Employee[]>([]);
@@ -338,7 +343,11 @@ export class EmployeesComponent implements OnDestroy {
 
   private updateFilterOptions(employees: Employee[]): void {
     const departments = new Set(employees.map((emp) => emp.department));
-    const roles = new Set(employees.map((emp) => emp.role.name));
+    const roles = new Set(
+      employees
+        .filter(emp => emp.role && emp.role.name)
+        .map((emp) => emp.role.name)
+    );
 
     this.departments.set(Array.from(departments));
     this.roles.set(Array.from(roles));
@@ -361,7 +370,7 @@ export class EmployeesComponent implements OnDestroy {
     }
 
     if (this.roleFilter) {
-      filtered = filtered.filter((emp) => emp.role.name === this.roleFilter);
+      filtered = filtered.filter((emp) => emp.role?.name === this.roleFilter);
     }
 
     if (this.statusFilter) {
@@ -406,7 +415,29 @@ export class EmployeesComponent implements OnDestroy {
   }
 
   editEmployee(id: string): void {
-    void this.router.navigate(['/employees', id, 'edit']);
+    const employee = this.employees().find(emp => emp.id === id);
+    if (!employee) {
+      this.message.error('Employee not found');
+      return;
+    }
+
+    const modalRef = this.modal.create<EmployeeEditModalComponent>({
+      nzTitle: 'Edit Employee',
+      nzContent: EmployeeEditModalComponent,
+      nzWidth: 600,
+      nzFooter: null,
+      nzData: {
+        employee,
+        departments: this.departments(),
+        roles: this.roles()
+      }
+    });
+
+    modalRef.afterClose.subscribe(result => {
+      if (result) {
+        this.loadEmployees();
+      }
+    });
   }
 
   deleteEmployee(id: string): void {
