@@ -4,19 +4,35 @@ import {
   inject,
   CUSTOM_ELEMENTS_SCHEMA,
   HostListener,
-  signal
+  signal,
+  OnInit,
+  ChangeDetectorRef,
+  AfterViewInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { AuthService } from '../services/auth.service';
 import { PreferencesService } from '../services/preferences.service';
 import { AcIfDirective } from '../../shared/directives/ac-if.directive';
-import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-design/icons-angular/icons';
+import { 
+  DashboardOutline, 
+  TeamOutline, 
+  SafetyCertificateOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
+  DownOutline,
+  LogoutOutline,
+  ClearOutline,
+  PlusOutline,
+  EditOutline,
+  DeleteOutline
+} from '@ant-design/icons-angular/icons';
 
 @Component({
   selector: 'app-layout',
@@ -111,9 +127,8 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
 
         <!-- Content -->
         <nz-content 
+          [ngStyle]="contentStyle()"
           class="p-6 transition-all duration-300 ease-in-out"
-          [class.lg:ml-[240px]]="!isCollapsed()"
-          [class.lg:ml-[80px]]="isCollapsed()"
         >
           <router-outlet></router-outlet>
         </nz-content>
@@ -149,13 +164,33 @@ import { DashboardOutline, TeamOutline, SafetyCertificateOutline } from '@ant-de
     `,
   ],
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit, AfterViewInit {
   private readonly auth = inject(AuthService);
   private readonly prefs = inject(PreferencesService);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly iconService = inject(NzIconService);
   
-  private readonly isMobile = signal<boolean>(window.innerWidth < 1024);
-  private readonly sidebarOpen = signal<boolean>(window.innerWidth >= 1024);
-  private readonly collapsed = signal<boolean>(this.prefs.getSidebarState());
+  private readonly isMobile = signal<boolean>(false);
+  private readonly sidebarOpen = signal<boolean>(false);
+  private readonly collapsed = signal<boolean>(false);
+
+  constructor() {
+    this.iconService.addIcon(
+      ...[
+        DashboardOutline,
+        TeamOutline,
+        SafetyCertificateOutline,
+        MenuFoldOutline,
+        MenuUnfoldOutline,
+        DownOutline,
+        LogoutOutline,
+        ClearOutline,
+        PlusOutline,
+        EditOutline,
+        DeleteOutline
+      ]
+    );
+  }
 
   readonly userName = computed(() => {
     const user = this.auth.getCurrentUser();
@@ -169,6 +204,26 @@ export class LayoutComponent {
 
   readonly isCollapsed = computed(() => this.collapsed());
   readonly isSidebarOpen = computed(() => this.sidebarOpen());
+  readonly contentStyle = computed(() => {
+    if (window.innerWidth < 1024) {
+      return {};
+    }
+    return {
+      'margin-left': this.isCollapsed() ? '80px' : '240px'
+    };
+  });
+
+  ngOnInit() {
+    // Initialize states after component is created
+    this.isMobile.set(window.innerWidth < 1024);
+    this.sidebarOpen.set(window.innerWidth >= 1024);
+    this.collapsed.set(this.prefs.getSidebarState());
+  }
+
+  ngAfterViewInit() {
+    // Mark for check after view initialization
+    this.cdr.detectChanges();
+  }
 
   @HostListener('window:resize')
   onResize() {
@@ -177,15 +232,18 @@ export class LayoutComponent {
     if (!mobile && !this.sidebarOpen()) {
       this.sidebarOpen.set(true);
     }
+    this.cdr.detectChanges();
   }
 
   toggleSidebar() {
     this.sidebarOpen.update(open => !open);
+    this.cdr.detectChanges();
   }
 
   onCollapse(collapsed: boolean) {
     this.collapsed.set(collapsed);
     this.prefs.setSidebarState(collapsed);
+    this.cdr.detectChanges();
   }
 
   logout(): void {
