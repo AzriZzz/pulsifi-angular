@@ -1,16 +1,10 @@
 {
   "hosting": {
-    "public": "dist/pulsifi-angular",
+    "public": "dist/pulsifi-angular/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
