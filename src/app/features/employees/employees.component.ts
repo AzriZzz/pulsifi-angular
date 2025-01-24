@@ -54,7 +54,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
       <nz-alert
         nzType="info"
         nzMessage="Informational Notes"
-        nzDescription="This pages can be accessed by admins and employees. Only action column is available for admins."
+        nzDescription="This pages can be accessed by admins,managers and employees. Action column is not available for employees."
         nzShowIcon
       ></nz-alert>
       <div class="header pt-6">

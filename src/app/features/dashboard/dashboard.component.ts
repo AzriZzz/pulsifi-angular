@@ -22,7 +22,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
       <nz-alert
         nzType="info"
         nzMessage="Informational Notes"
-        nzDescription="Welcome to the dashboard. Here you can see the total number of employees, departments, and roles. This pages can be accessed both by admins and employees."
+        nzDescription="Welcome to the dashboard. Here you can see the total number of employees, departments, and roles."
         nzShowIcon
       ></nz-alert>
       <h1 class="text-2xl font-semibold pt-6">Welcome, {{ userName }}!</h1>

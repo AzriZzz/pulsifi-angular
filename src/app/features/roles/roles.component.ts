@@ -20,7 +20,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
       <nz-alert
         nzType="info"
         nzMessage="Informational Notes"
-        nzDescription="This pages is still under contruction and can only be accessed by admins."
+        nzDescription="This pages is still under contruction and can only be accessed by admins and managers."
         nzShowIcon
       ></nz-alert>
       <div class="header pt-6">
