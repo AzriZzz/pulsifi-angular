@@ -550,6 +550,7 @@ export class EmployeesComponent implements OnDestroy {
 
     modalRef.afterClose.subscribe((result) => {
       if (result) {
+        this.message.success('Employee updated successfully');
         this.loadEmployees();
       }
     });

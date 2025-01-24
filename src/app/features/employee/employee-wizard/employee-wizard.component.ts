@@ -328,16 +328,20 @@ export class EmployeeWizardComponent {
         await this.validateStep();
         // Submit form data
         const formData = this.formData();
+
         this.employeeService.createEmployee(formData).subscribe({
           next: () => {
+            console.log('Succcess submitted employee data:', formData);
             this.message.success('Employee added successfully!');
             this.router.navigate(['/employees']);
           },
           error: (error) => {
+            console.error('Error creating employee:', error);
             this.message.error('Failed to create employee. Please try again.');
           },
         });
       } catch (error) {
+        console.error('Validation error:', error);
         this.message.error('Submission failed. Please try again.');
       } finally {
         this.isValidating.set(false);

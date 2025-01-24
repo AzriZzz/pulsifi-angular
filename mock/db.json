@@ -2,7 +2,7 @@
   "employees": [
     {
       "id": "1",
-      "firstName": "Johnwick",
+      "firstName": "John",
       "lastName": "Slug",
       "email": "john.slug@example.com",
       "department": "Engineering",
@@ -30,7 +30,7 @@
           "view_employees"
         ]
       },
-      "startDate": "2025-01-22",
+      "startDate": "2025-01-22T00:00:00.000Z",
       "status": "active"
     },
     {
@@ -497,6 +497,66 @@
       },
       "startDate": "2025-01-30",
       "status": "active"
+    },
+    {
+      "id": "5660624b-87e8-445d-91d3-cceec923249f",
+      "firstName": "strix",
+      "lastName": "kajima",
+      "email": "strix@example.com",
+      "department": "HR",
+      "role": {
+        "id": "532059f5-e48e-4013-a7c6-b6e6479a6f90",
+        "name": "Senior Developer",
+        "permissions": [
+          {
+            "id": "c7683254-ba2f-4a28-b6ab-69bb63a2c906",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "b43fc0fa-2b06-4391-83da-6322718d9977",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "6730850f-eb18-4088-9858-1627e468abff",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2025-01-24",
+      "status": "inactive"
+    },
+    {
+      "id": "c348ecf5-cd39-4020-ad8a-b67f3a228cf4",
+      "firstName": "Strixx",
+      "lastName": "Homesay",
+      "email": "home@gmail.com",
+      "department": "Sales",
+      "role": {
+        "id": "8dc6ebec-ea8c-40b5-8900-e15e338cf712",
+        "name": "Sales Manager",
+        "permissions": [
+          {
+            "id": "b7246a0b-f2a2-4475-990c-c8ad264543d6",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "59d61eea-3236-41f5-8e89-9fd14e6beed0",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "046d4a84-66b9-426a-857b-76d910f2bf76",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2025-01-31",
+      "status": "inactive"
     }
   ],
   "roles": [

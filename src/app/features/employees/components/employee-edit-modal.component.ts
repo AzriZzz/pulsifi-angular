@@ -1,6 +1,12 @@
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -8,6 +14,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { Employee } from '../../../shared/interfaces/user.interface';
 import { AuthService } from '../../../core/services/auth.service';
 import { EmployeeService } from '../../employee/services/employee.service';
@@ -23,14 +30,19 @@ import { EmployeeService } from '../../employee/services/employee.service';
     NzInputModule,
     NzSelectModule,
     NzDatePickerModule,
-    NzButtonModule
+    NzButtonModule,
+    NzSwitchModule,
   ],
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">First Name</nz-form-label>
         <nz-form-control [nzSpan]="14">
-          <input nz-input formControlName="firstName" placeholder="First Name" />
+          <input
+            nz-input
+            formControlName="firstName"
+            placeholder="First Name"
+          />
         </nz-form-control>
       </nz-form-item>
 
@@ -44,7 +56,12 @@ import { EmployeeService } from '../../employee/services/employee.service';
       <nz-form-item>
         <nz-form-label [nzSpan]="6">Email</nz-form-label>
         <nz-form-control [nzSpan]="14">
-          <input nz-input formControlName="email" placeholder="Email" type="email" />
+          <input
+            nz-input
+            formControlName="email"
+            placeholder="Email"
+            type="email"
+          />
         </nz-form-control>
       </nz-form-item>
 
@@ -53,7 +70,11 @@ import { EmployeeService } from '../../employee/services/employee.service';
           <nz-form-label [nzSpan]="6">Department</nz-form-label>
           <nz-form-control [nzSpan]="14">
             <nz-select formControlName="department">
-              <nz-option *ngFor="let dept of departments" [nzValue]="dept" [nzLabel]="dept"></nz-option>
+              <nz-option
+                *ngFor="let dept of departments"
+                [nzValue]="dept"
+                [nzLabel]="dept"
+              ></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -62,7 +83,11 @@ import { EmployeeService } from '../../employee/services/employee.service';
           <nz-form-label [nzSpan]="6">Role</nz-form-label>
           <nz-form-control [nzSpan]="14">
             <nz-select formControlName="role">
-              <nz-option *ngFor="let role of roles" [nzValue]="role" [nzLabel]="role"></nz-option>
+              <nz-option
+                *ngFor="let role of roles"
+                [nzValue]="role"
+                [nzLabel]="role"
+              ></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -70,10 +95,13 @@ import { EmployeeService } from '../../employee/services/employee.service';
         <nz-form-item>
           <nz-form-label [nzSpan]="6">Status</nz-form-label>
           <nz-form-control [nzSpan]="14">
-            <nz-select formControlName="status">
-              <nz-option nzValue="active" nzLabel="Active"></nz-option>
-              <nz-option nzValue="inactive" nzLabel="Inactive"></nz-option>
-            </nz-select>
+            <nz-switch
+              [(ngModel)]="isActive"
+              [ngModelOptions]="{standalone: true}"
+              [nzCheckedChildren]="'Active'"
+              [nzUnCheckedChildren]="'Inactive'"
+              (ngModelChange)="onStatusChange($event)"
+            ></nz-switch>
           </nz-form-control>
         </nz-form-item>
 
@@ -87,19 +115,28 @@ import { EmployeeService } from '../../employee/services/employee.service';
 
       <div class="modal-footer">
         <button nz-button (click)="onCancel()">Cancel</button>
-        <button nz-button nzType="primary" type="submit" [disabled]="!form.valid">Save</button>
+        <button
+          nz-button
+          nzType="primary"
+          type="submit"
+          [disabled]="!form.valid"
+        >
+          Save
+        </button>
       </div>
     </form>
   `,
-  styles: [`
-    .modal-footer {
-      margin-top: 24px;
-      text-align: right;
-      button {
-        margin-left: 8px;
+  styles: [
+    `
+      .modal-footer {
+        margin-top: 24px;
+        text-align: right;
+        button {
+          margin-left: 8px;
+        }
       }
-    }
-  `]
+    `,
+  ],
 })
 export class EmployeeEditModalComponent {
   private fb = inject(FormBuilder);
@@ -112,6 +149,7 @@ export class EmployeeEditModalComponent {
   departments: string[] = [];
   roles: string[] = [];
   form: FormGroup;
+  isActive = false;
 
   get canEditAllFields(): boolean {
     return this.authService.hasPermission('manage_employees');
@@ -132,12 +170,13 @@ export class EmployeeEditModalComponent {
       email: ['', [Validators.required, Validators.email]],
       department: [{ value: '', disabled: !this.canEditAllFields }],
       role: [{ value: '', disabled: !this.canEditAllFields }],
-      status: [{ value: '', disabled: !this.canEditAllFields }],
-      startDate: [{ value: null, disabled: !this.canEditAllFields }]
+      status: [{ value: 'active', disabled: !this.canEditAllFields }],
+      startDate: [{ value: null, disabled: !this.canEditAllFields }],
     });
 
     // Initialize form with employee data
     if (this.employee) {
+      this.isActive = this.employee.status === 'active';
       this.form.patchValue({
         firstName: this.employee.firstName,
         lastName: this.employee.lastName,
@@ -145,13 +184,15 @@ export class EmployeeEditModalComponent {
         department: this.employee.department,
         role: this.employee.role.name,
         status: this.employee.status,
-        startDate: this.employee.startDate ? new Date(this.employee.startDate) : null
+        startDate: this.employee.startDate
+          ? new Date(this.employee.startDate)
+          : null,
       });
     }
   }
 
   onCancel(): void {
-    this.modal.close();
+    this.modal.close(false);
   }
 
   onSubmit(): void {
@@ -167,20 +208,25 @@ export class EmployeeEditModalComponent {
         startDate: formValue.startDate,
         role: {
           ...this.employee.role,
-          name: formValue.role
-        }
+          name: formValue.role,
+        },
       };
 
-      this.employeeService.updateEmployee(this.employee.id, updatedEmployee).subscribe({
-        next: () => {
-          this.message.success('Employee updated successfully');
-          this.modal.close(true);
-        },
-        error: (error) => {
-          console.error('Error updating employee:', error);
-          this.message.error('Failed to update employee. Please try again.');
-        }
-      });
+      this.employeeService
+        .updateEmployee(this.employee.id, updatedEmployee)
+        .subscribe({
+          next: () => {
+            this.modal.close(true);
+          },
+          error: (error) => {
+            console.error('Error updating employee:', error);
+            this.message.error('Failed to update employee. Please try again.');
+          },
+        });
     }
   }
-} 
+
+  onStatusChange(checked: boolean): void {
+    this.form.patchValue({ status: checked ? 'active' : 'inactive' });
+  }
+}
