@@ -20,14 +20,14 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
       <nz-alert
         nzType="info"
         nzMessage="Informational Notes"
-        nzDescription="This pages can only be accessed by admins."
+        nzDescription="This pages is still under contruction and can only be accessed by admins."
         nzShowIcon
       ></nz-alert>
       <div class="header pt-6">
-        <h1 class="text-2xl font-semibold">Roles</h1>
-        <button nz-button nzType="primary">Add Role</button>
+        <!-- <h1 class="text-2xl font-semibold">Roles</h1> -->
+        <!-- <button nz-button nzType="primary">Add Role</button> -->
       </div>
-      <nz-table #basicTable [nzData]="[]">
+      <!-- <nz-table #basicTable [nzData]="[]">
         <thead>
           <tr>
             <th>Name</th>
@@ -41,7 +41,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
             <td colspan="4" class="text-center">No roles found</td>
           </tr>
         </tbody>
-      </nz-table>
+      </nz-table> -->
     </div>
   `,
   styles: [

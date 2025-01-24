@@ -26,6 +26,9 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         nzShowIcon
       ></nz-alert>
       <h1 class="text-2xl font-semibold pt-6">Welcome, {{ userName }}!</h1>
+      <div class="pb-6">
+        <h2 class="text-xl font-semibold">Dashboard</h2>
+      </div>
       <div nz-row [nzGutter]="16">
         <div nz-col [nzSpan]="8">
           <nz-card>

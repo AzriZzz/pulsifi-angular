@@ -7,7 +7,7 @@ import {
   signal,
   OnInit,
   ChangeDetectorRef,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -20,9 +20,9 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { AuthService } from '../services/auth.service';
 import { PreferencesService } from '../services/preferences.service';
 import { AcIfDirective } from '../../shared/directives/ac-if.directive';
-import { 
-  DashboardOutline, 
-  TeamOutline, 
+import {
+  DashboardOutline,
+  TeamOutline,
   SafetyCertificateOutline,
   MenuFoldOutline,
   MenuUnfoldOutline,
@@ -31,7 +31,7 @@ import {
   ClearOutline,
   PlusOutline,
   EditOutline,
-  DeleteOutline
+  DeleteOutline,
 } from '@ant-design/icons-angular/icons';
 
 @Component({
@@ -55,11 +55,15 @@ import {
         class="flex items-center justify-between px-6 bg-white shadow-sm fixed w-full z-10"
       >
         <div class="flex items-center gap-4">
-          <span 
-            class="text-xl cursor-pointer lg:hidden" 
+          <span
+            class="text-xl cursor-pointer lg:hidden"
             (click)="toggleSidebar()"
           >
-            <span nz-icon [nzType]="isSidebarOpen() ? 'menu-fold' : 'menu-unfold'" nzTheme="outline"></span>
+            <span
+              nz-icon
+              [nzType]="isSidebarOpen() ? 'menu-fold' : 'menu-unfold'"
+              nzTheme="outline"
+            ></span>
           </span>
           <span class="text-xl font-semibold">Employee Portal</span>
         </div>
@@ -68,8 +72,6 @@ import {
             <a nz-dropdown [nzDropdownMenu]="menu">
               <div class="flex items-center cursor-pointer gap-2">
                 <nz-avatar [nzText]="userInitials()" nzSize="large"></nz-avatar>
-                <span class="hidden sm:inline">{{ userName() }}</span>
-                <span nz-icon nzType="down" nzTheme="outline"></span>
               </div>
             </a>
             <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -86,7 +88,7 @@ import {
 
       <nz-layout class="min-h-screen pt-16">
         <!-- Overlay -->
-        <div 
+        <div
           *ngIf="isSidebarOpen() && isMobile()"
           class="fixed top-16 bottom-0 left-0 right-0 bg-black bg-opacity-50 z-10 transition-opacity duration-300"
           (click)="toggleSidebar()"
@@ -110,7 +112,7 @@ import {
               routerLinkActive="ant-menu-item-selected"
             >
               <span nz-icon nzType="dashboard" nzTheme="outline"></span>
-              <span>Dashboard</span>
+              <span class="sidebar-title">Dashboard</span>
             </li>
             <li
               nz-menu-item
@@ -119,7 +121,7 @@ import {
               routerLinkActive="ant-menu-item-selected"
             >
               <span nz-icon nzType="team" nzTheme="outline"></span>
-              <span>Employees</span>
+              <span class="sidebar-title">Employees</span>
             </li>
             <li
               nz-menu-item
@@ -127,14 +129,18 @@ import {
               routerLink="/roles"
               routerLinkActive="ant-menu-item-selected"
             >
-              <span nz-icon nzType="safety-certificate" nzTheme="outline"></span>
-              <span>Roles</span>
+              <span
+                nz-icon
+                nzType="safety-certificate"
+                nzTheme="outline"
+              ></span>
+              <span class="sidebar-title">Roles</span>
             </li>
           </ul>
         </nz-sider>
 
         <!-- Content -->
-        <nz-content 
+        <nz-content
           [ngStyle]="contentStyle()"
           class="p-6 transition-all duration-300 ease-in-out"
         >
@@ -169,6 +175,24 @@ import {
         }
       }
 
+      .sidebar-title {
+        position: relative;
+        top: 2px;
+      }
+
+      :host ::ng-deep {
+        .anticon {
+          display: inline-flex !important;
+          align-items: center;
+          justify-content: center;
+          vertical-align: middle;
+        }
+
+        span.anticon {
+          vertical-align: 1;
+        }
+      }
+
       .bg-opacity-50 {
         --tw-bg-opacity: 0.5;
       }
@@ -180,7 +204,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   private readonly prefs = inject(PreferencesService);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly iconService = inject(NzIconService);
-  
+
   readonly isMobile = signal<boolean>(false);
   private readonly sidebarOpen = signal<boolean>(false);
   private readonly collapsed = signal<boolean>(false);
@@ -198,7 +222,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         ClearOutline,
         PlusOutline,
         EditOutline,
-        DeleteOutline
+        DeleteOutline,
       ]
     );
   }
@@ -220,7 +244,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       return {};
     }
     return {
-      'margin-left': this.isCollapsed() ? '80px' : '240px'
+      'margin-left': this.isCollapsed() ? '80px' : '240px',
     };
   });
 
@@ -247,11 +271,12 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   toggleSidebar() {
-    this.sidebarOpen.update(open => !open);
+    this.sidebarOpen.update((open) => !open);
     this.cdr.detectChanges();
   }
 
   onCollapse(collapsed: boolean) {
+    console.log('collapsed', collapsed);
     this.collapsed.set(collapsed);
     this.prefs.setSidebarState(collapsed);
     this.cdr.detectChanges();

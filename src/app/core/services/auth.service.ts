@@ -213,17 +213,4 @@ export class AuthService {
   getCurrentUser(): User | null {
     return this.currentUser();
   }
-
-  getAuthToken(): string | null {
-    return this.authToken();
-  }
-
-  // Refresh token - implement if needed
-  refreshToken(): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>('/auth/refresh', {}).pipe(
-      tap((response) => {
-        this.setSession(response);
-      })
-    );
-  }
 }
