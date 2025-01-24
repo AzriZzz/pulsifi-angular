@@ -2,6 +2,28 @@
 
 A modern Angular-based employee management system that enables organizations to efficiently manage their workforce, roles, and permissions.
 
+## Live Demo
+
+Visit the live application at [https://pulsifi-assessment-54494.web.app/](https://pulsifi-assessment-54494.web.app/)
+
+**Note:** On first access, the backend JSON server needs to wake up from sleep mode, which takes approximately 50 seconds. Please be patient during this initial load.
+
+### Test Credentials
+
+You can use these credentials to test different user roles:
+
+**Admin Access**
+- Email: admin@example.com
+- Password: admin123
+
+**Manager Access**
+- Email: manager@example.com
+- Password: manager123
+
+**Employee Access**
+- Email: employee@example.com
+- Password: employee123
+
 ## Features
 
 - **Employee Management**

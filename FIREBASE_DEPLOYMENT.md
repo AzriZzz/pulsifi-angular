@@ -55,7 +55,7 @@ For long-term maintenance, consider implementing these optimizations:
 
 ```bash
 # Build the production version of your application
-ng build --configuration=production
+npm run build
 ```
 
 This will create a `dist` folder containing your production-ready application.
