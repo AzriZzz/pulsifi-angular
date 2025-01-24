@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -28,70 +29,82 @@ import {
     NzStepsModule,
     NzButtonModule,
     NzCardModule,
+    NzIconModule,
     PersonalInfoStepComponent,
     RoleAssignmentStepComponent,
     SystemAccessStepComponent,
   ],
   template: `
-    <nz-card>
-      <nz-steps [nzCurrent]="currentStep()">
-        <nz-step
-          *ngFor="let step of steps(); let i = index"
-          [nzTitle]="step.title"
-          [nzDescription]="step.description"
-          [nzStatus]="getStepStatus(i)"
-        ></nz-step>
-      </nz-steps>
-
-      <div class="step-content mt-8">
-        <ng-container [ngSwitch]="currentStep()">
-          <app-personal-info-step
-            *ngSwitchCase="0"
-            [initialData]="formData().step1"
-            (formValid)="updateStepValidity($event)"
-            (formData)="updateFormData($event)"
-          ></app-personal-info-step>
-          <app-role-assignment-step
-            *ngSwitchCase="1"
-            [initialData]="formData().step2"
-            (formValid)="updateStepValidity($event)"
-            (formData)="updateFormData($event)"
-          ></app-role-assignment-step>
-          <app-system-access-step
-            *ngSwitchCase="2"
-            [initialData]="formData().step3"
-            (formValid)="updateStepValidity($event)"
-            (formData)="updateFormData($event)"
-          ></app-system-access-step>
-        </ng-container>
+    <div class="wizard-container">
+      <div class="header">
+        <div class="flex items-center gap-4">
+          <button nz-button nzType="link" (click)="goBack()">
+            <i nz-icon nzType="left" nzTheme="outline"></i>
+          </button>
+          <h1 class="text-2xl font-semibold m-0">Add Employee</h1>
+        </div>
       </div>
 
-      <div class="step-action mt-8 flex justify-between">
-        <button nz-button (click)="prev()" *ngIf="currentStep() > 0">
-          Previous
-        </button>
-        <button
-          nz-button
-          nzType="primary"
-          (click)="next()"
-          *ngIf="currentStep() < steps().length - 1"
-          [disabled]="!currentStepValid() || isValidating()"
-        >
-          <span *ngIf="isValidating()">Validating...</span>
-          <span *ngIf="!isValidating()">Next</span>
-        </button>
-        <button
-          nz-button
-          nzType="primary"
-          (click)="submit()"
-          *ngIf="currentStep() === steps().length - 1"
-          [disabled]="!isFormValid() || isValidating()"
-        >
-          <span *ngIf="isValidating()">Validating...</span>
-          <span *ngIf="!isValidating()">Submit</span>
-        </button>
-      </div>
-    </nz-card>
+      <nz-card>
+        <nz-steps [nzCurrent]="currentStep()">
+          <nz-step
+            *ngFor="let step of steps(); let i = index"
+            [nzTitle]="step.title"
+            [nzDescription]="step.description"
+            [nzStatus]="getStepStatus(i)"
+          ></nz-step>
+        </nz-steps>
+
+        <div class="step-content mt-8">
+          <ng-container [ngSwitch]="currentStep()">
+            <app-personal-info-step
+              *ngSwitchCase="0"
+              [initialData]="formData().step1"
+              (formValid)="updateStepValidity($event)"
+              (formData)="updateFormData($event)"
+            ></app-personal-info-step>
+            <app-role-assignment-step
+              *ngSwitchCase="1"
+              [initialData]="formData().step2"
+              (formValid)="updateStepValidity($event)"
+              (formData)="updateFormData($event)"
+            ></app-role-assignment-step>
+            <app-system-access-step
+              *ngSwitchCase="2"
+              [initialData]="formData().step3"
+              (formValid)="updateStepValidity($event)"
+              (formData)="updateFormData($event)"
+            ></app-system-access-step>
+          </ng-container>
+        </div>
+
+        <div class="step-action mt-8 flex justify-between">
+          <button nz-button (click)="prev()" *ngIf="currentStep() > 0">
+            Previous
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="next()"
+            *ngIf="currentStep() < steps().length - 1"
+            [disabled]="!currentStepValid() || isValidating()"
+          >
+            <span *ngIf="isValidating()">Validating...</span>
+            <span *ngIf="!isValidating()">Next</span>
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="submit()"
+            *ngIf="currentStep() === steps().length - 1"
+            [disabled]="!isFormValid() || isValidating()"
+          >
+            <span *ngIf="isValidating()">Validating...</span>
+            <span *ngIf="!isValidating()">Submit</span>
+          </button>
+        </div>
+      </nz-card>
+    </div>
   `,
   styles: [
     `
@@ -100,18 +113,54 @@ import {
         max-width: 800px;
         margin: 2rem auto;
       }
+
+      .wizard-container {
+        background: #f0f2f5;
+        // padding: 24px;
+
+        @media (max-width: 768px) {
+          padding: 16px;
+        }
+      }
+
+      .header {
+        margin-bottom: 24px;
+
+        button {
+          color: rgba(0, 0, 0, 0.85);
+          font-size: 18px;
+          padding: 0;
+          height: auto;
+        }
+      }
+
       .step-content {
         min-height: 200px;
         padding: 2rem 0;
       }
+
       .mt-8 {
         margin-top: 2rem;
       }
+
       .flex {
         display: flex;
       }
+
+      .items-center {
+        align-items: center;
+      }
+
+      .gap-4 {
+        gap: 1rem;
+      }
+
       .justify-between {
         justify-content: space-between;
+      }
+
+      .m-0 {
+        margin: 0;
       }
     `,
   ],
@@ -294,5 +343,9 @@ export class EmployeeWizardComponent {
         this.isValidating.set(false);
       }
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/employees']);
   }
 }

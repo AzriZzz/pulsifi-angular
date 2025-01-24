@@ -29,8 +29,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
       <div class="pb-6">
         <h2 class="text-xl font-semibold">Dashboard</h2>
       </div>
-      <div nz-row [nzGutter]="16">
-        <div nz-col [nzSpan]="8">
+      <div nz-row [nzGutter]="[16, 16]">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="8">
           <nz-card>
             <nz-statistic
               [nzValue]="totalEmployees()"
@@ -38,7 +38,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
             ></nz-statistic>
           </nz-card>
         </div>
-        <div nz-col [nzSpan]="8">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="8">
           <nz-card>
             <nz-statistic
               [nzValue]="totalDepartments()"
@@ -46,7 +46,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
             ></nz-statistic>
           </nz-card>
         </div>
-        <div nz-col [nzSpan]="8">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="8">
           <nz-card>
             <nz-statistic
               [nzValue]="totalRoles()"
@@ -61,12 +61,36 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
     `
       .dashboard-container {
         padding: 24px;
+        background: #f0f2f5;
+        min-height: 100vh;
+
+        @media (max-width: 768px) {
+          padding: 16px;
+        }
       }
+
       h1 {
         margin-bottom: 24px;
       }
-      nz-card {
-        margin-bottom: 24px;
+
+      :host ::ng-deep {
+        .ant-card {
+          margin-bottom: 0;
+        }
+
+        .ant-statistic {
+          text-align: center;
+        }
+
+        .ant-statistic-title {
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.85);
+        }
+
+        .ant-statistic-content {
+          font-size: 24px;
+          font-weight: 600;
+        }
       }
     `,
   ],

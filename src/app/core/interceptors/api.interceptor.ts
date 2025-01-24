@@ -17,12 +17,12 @@ export function apiInterceptor(
   const isAbsoluteUrl = /^https?:\/\//i.test(request.url);
   const url = isAbsoluteUrl ? request.url : `${environment.apiUrl}${request.url}`;
 
-  console.log('API Request:', {
-    method: request.method,
-    url,
-    body: request.body,
-    headers: request.headers
-  });
+  // console.log('API Request:', {
+  //   method: request.method,
+  //   url,
+  //   body: request.body,
+  //   headers: request.headers
+  // });
 
   // Add base URL and headers
   const apiReq = request.clone({
