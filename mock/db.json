@@ -13,8 +13,8 @@
           "edit_profile"
         ]
       },
-      "startDate": "2024-01-01T00:00:00.000Z",
-      "status": "active"
+      "startDate": "2024-01-17T00:00:00.000Z",
+      "status": "inactive"
     },
     {
       "id": "e1345f42-ace8-4cc3-bbbd-61c4d5967696",
@@ -90,7 +90,7 @@
           }
         ]
       },
-      "startDate": "2025-01-31",
+      "startDate": "2025-01-31T00:00:00.000Z",
       "status": "active"
     },
     {
@@ -120,7 +120,7 @@
           }
         ]
       },
-      "startDate": "2023-01-15",
+      "startDate": "2023-01-15T00:00:00.000Z",
       "status": "active"
     },
     {
@@ -467,6 +467,36 @@
       },
       "startDate": "2025-01-24",
       "status": "inactive"
+    },
+    {
+      "id": "ddfdec69-17b2-4fef-ae25-68f2adb0d4d5",
+      "firstName": "Saiko",
+      "lastName": "Daze",
+      "email": "saikodaze@example.com",
+      "department": "Sales",
+      "role": {
+        "id": "785e4f8e-091f-44f4-9a27-9512ce233750",
+        "name": "Content Specialist",
+        "permissions": [
+          {
+            "id": "a3a94bc6-7da9-438d-9c24-819c0b1b1ac5",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "21c6abfd-4ccb-4cb6-a6df-1f74fe3600c3",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "0ef9fc3a-a623-49f0-8656-26f1b30d91a1",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2025-01-30",
+      "status": "active"
     }
   ],
   "roles": [
