@@ -435,8 +435,8 @@
           }
         ]
       },
-      "startDate": "2025-01-31",
-      "status": "inactive"
+      "startDate": "2025-01-31T00:00:00.000Z",
+      "status": "active"
     },
     {
       "id": "305299bd-103f-4e71-af64-62b9cb3e96b7",
@@ -557,6 +557,1076 @@
       },
       "startDate": "2025-01-31",
       "status": "inactive"
+    },
+    {
+      "id": "e16",
+      "firstName": "Yuki",
+      "lastName": "Tanaka",
+      "email": "y.tanaka@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-10",
+        "name": "Tech Lead",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "e17",
+      "firstName": "Carlos",
+      "lastName": "Garcia",
+      "email": "c.garcia@company.com",
+      "department": "Sales",
+      "role": {
+        "id": "role-7",
+        "name": "Sales Representative",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-01-20",
+      "status": "active"
+    },
+    {
+      "id": "e18",
+      "firstName": "Sophie",
+      "lastName": "Martin",
+      "email": "s.martin@company.com",
+      "department": "HR",
+      "role": {
+        "id": "role-3",
+        "name": "HR Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-01-22",
+      "status": "active"
+    },
+    {
+      "id": "e19",
+      "firstName": "Raj",
+      "lastName": "Patel",
+      "email": "r.patel@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-4",
+        "name": "Developer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-01-25",
+      "status": "active"
+    },
+    {
+      "id": "e20",
+      "firstName": "Anna",
+      "lastName": "Kowalski",
+      "email": "a.kowalski@company.com",
+      "department": "Finance",
+      "role": {
+        "id": "role-6",
+        "name": "Financial Analyst",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-01-28",
+      "status": "active"
+    },
+    {
+      "id": "e21",
+      "firstName": "Luis",
+      "lastName": "Hernandez",
+      "email": "l.hernandez@company.com",
+      "department": "Marketing",
+      "role": {
+        "id": "role-11",
+        "name": "Content Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-01",
+      "status": "active"
+    },
+    {
+      "id": "e45",
+      "firstName": "Hana",
+      "lastName": "Yamamoto",
+      "email": "h.yamamoto@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-4",
+        "name": "Developer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-15",
+      "status": "inactive"
+    },
+    {
+      "id": "e22",
+      "firstName": "Nina",
+      "lastName": "Ivanova",
+      "email": "n.ivanova@company.com",
+      "department": "Sales",
+      "role": {
+        "id": "role-7",
+        "name": "Sales Representative",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-05",
+      "status": "active"
+    },
+    {
+      "id": "e23",
+      "firstName": "Marcus",
+      "lastName": "Silva",
+      "email": "m.silva@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-4",
+        "name": "Developer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-08",
+      "status": "active"
+    },
+    {
+      "id": "e24",
+      "firstName": "Elena",
+      "lastName": "Costa",
+      "email": "e.costa@company.com",
+      "department": "Marketing",
+      "role": {
+        "id": "role-11",
+        "name": "Content Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-10",
+      "status": "active"
+    },
+    {
+      "id": "e25",
+      "firstName": "Ahmed",
+      "lastName": "Hassan",
+      "email": "a.hassan@company.com",
+      "department": "Finance",
+      "role": {
+        "id": "role-6",
+        "name": "Financial Analyst",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-12",
+      "status": "inactive"
+    },
+    {
+      "id": "e26",
+      "firstName": "Isabella",
+      "lastName": "Santos",
+      "email": "i.santos@company.com",
+      "department": "HR",
+      "role": {
+        "id": "role-3",
+        "name": "HR Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-15",
+      "status": "active"
+    },
+    {
+      "id": "e27",
+      "firstName": "Oliver",
+      "lastName": "Schmidt",
+      "email": "o.schmidt@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-4",
+        "name": "Developer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-18",
+      "status": "active"
+    },
+    {
+      "id": "e28",
+      "firstName": "Sophia",
+      "lastName": "Wong",
+      "email": "s.wong@company.com",
+      "department": "Sales",
+      "role": {
+        "id": "role-7",
+        "name": "Sales Representative",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-20",
+      "status": "active"
+    },
+    {
+      "id": "e29",
+      "firstName": "Lucas",
+      "lastName": "Muller",
+      "email": "l.muller@company.com",
+      "department": "Marketing",
+      "role": {
+        "id": "role-11",
+        "name": "Content Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-22",
+      "status": "active"
+    },
+    {
+      "id": "e30",
+      "firstName": "Emma",
+      "lastName": "Anderson",
+      "email": "e.anderson@company.com",
+      "department": "Finance",
+      "role": {
+        "id": "role-6",
+        "name": "Financial Analyst",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-25",
+      "status": "active"
+    },
+    {
+      "id": "e31",
+      "firstName": "Liam",
+      "lastName": "O'Connor",
+      "email": "l.oconnor@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-4",
+        "name": "Developer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-26",
+      "status": "active"
+    },
+    {
+      "id": "e32",
+      "firstName": "Aisha",
+      "lastName": "Khan",
+      "email": "a.khan@company.com",
+      "department": "Marketing",
+      "role": {
+        "id": "role-8",
+        "name": "Marketing Manager",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          },
+          {
+            "id": "perm-4",
+            "name": "manage_employees",
+            "description": "Permission to manage employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-27",
+      "status": "active"
+    },
+    {
+      "id": "e33",
+      "firstName": "Viktor",
+      "lastName": "Petrov",
+      "email": "v.petrov@company.com",
+      "department": "Finance",
+      "role": {
+        "id": "role-6",
+        "name": "Financial Analyst",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-02-28",
+      "status": "inactive"
+    },
+    {
+      "id": "e34",
+      "firstName": "Mei",
+      "lastName": "Liu",
+      "email": "m.liu@company.com",
+      "department": "Sales",
+      "role": {
+        "id": "role-7",
+        "name": "Sales Representative",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-01",
+      "status": "active"
+    },
+    {
+      "id": "e35",
+      "firstName": "Gabriel",
+      "lastName": "Santos",
+      "email": "g.santos@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-8",
+        "name": "QA Engineer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-02",
+      "status": "active"
+    },
+    {
+      "id": "e36",
+      "firstName": "Zara",
+      "lastName": "Ahmed",
+      "email": "z.ahmed@company.com",
+      "department": "HR",
+      "role": {
+        "id": "role-12",
+        "name": "HR Manager",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          },
+          {
+            "id": "perm-4",
+            "name": "manage_employees",
+            "description": "Permission to manage employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-03",
+      "status": "active"
+    },
+    {
+      "id": "e37",
+      "firstName": "Felix",
+      "lastName": "Weber",
+      "email": "f.weber@company.com",
+      "department": "Marketing",
+      "role": {
+        "id": "role-11",
+        "name": "Content Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-04",
+      "status": "active"
+    },
+    {
+      "id": "e38",
+      "firstName": "Priya",
+      "lastName": "Sharma",
+      "email": "p.sharma@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-4",
+        "name": "Developer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-05",
+      "status": "active"
+    },
+    {
+      "id": "e39",
+      "firstName": "Leo",
+      "lastName": "Dubois",
+      "email": "l.dubois@company.com",
+      "department": "Sales",
+      "role": {
+        "id": "role-5",
+        "name": "Sales Manager",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          },
+          {
+            "id": "perm-4",
+            "name": "manage_employees",
+            "description": "Permission to manage employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-06",
+      "status": "active"
+    },
+    {
+      "id": "e40",
+      "firstName": "Chiara",
+      "lastName": "Romano",
+      "email": "c.romano@company.com",
+      "department": "Finance",
+      "role": {
+        "id": "role-6",
+        "name": "Financial Analyst",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-07",
+      "status": "active"
+    },
+    {
+      "id": "e41",
+      "firstName": "Akiko",
+      "lastName": "Sato",
+      "email": "a.sato@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-10",
+        "name": "Tech Lead",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          },
+          {
+            "id": "perm-4",
+            "name": "manage_employees",
+            "description": "Permission to manage employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-08",
+      "status": "active"
+    },
+    {
+      "id": "e42",
+      "firstName": "Hans",
+      "lastName": "Fischer",
+      "email": "h.fischer@company.com",
+      "department": "Marketing",
+      "role": {
+        "id": "role-11",
+        "name": "Content Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-09",
+      "status": "inactive"
+    },
+    {
+      "id": "e43",
+      "firstName": "Sofia",
+      "lastName": "Popov",
+      "email": "s.popov@company.com",
+      "department": "HR",
+      "role": {
+        "id": "role-3",
+        "name": "HR Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-10",
+      "status": "active"
+    },
+    {
+      "id": "e44",
+      "firstName": "Diego",
+      "lastName": "Morales",
+      "email": "d.morales@company.com",
+      "department": "Sales",
+      "role": {
+        "id": "role-7",
+        "name": "Sales Representative",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-11",
+      "status": "active"
+    },
+    {
+      "id": "e46",
+      "firstName": "Fatima",
+      "lastName": "Al-Sayed",
+      "email": "f.alsayed@company.com",
+      "department": "Finance",
+      "role": {
+        "id": "role-6",
+        "name": "Financial Analyst",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-13",
+      "status": "active"
+    },
+    {
+      "id": "e47",
+      "firstName": "Lars",
+      "lastName": "Nielsen",
+      "email": "l.nielsen@company.com",
+      "department": "Engineering",
+      "role": {
+        "id": "role-4",
+        "name": "Developer",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-14",
+      "status": "active"
+    },
+    {
+      "id": "e48",
+      "firstName": "Carmen",
+      "lastName": "Ruiz",
+      "email": "c.ruiz@company.com",
+      "department": "Marketing",
+      "role": {
+        "id": "role-11",
+        "name": "Content Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-15",
+      "status": "active"
+    },
+    {
+      "id": "e49",
+      "firstName": "Andrei",
+      "lastName": "Volkov",
+      "email": "a.volkov@company.com",
+      "department": "Sales",
+      "role": {
+        "id": "role-7",
+        "name": "Sales Representative",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-16",
+      "status": "active"
+    },
+    {
+      "id": "e50",
+      "firstName": "Julia",
+      "lastName": "Berg",
+      "email": "j.berg@company.com",
+      "department": "HR",
+      "role": {
+        "id": "role-3",
+        "name": "HR Specialist",
+        "permissions": [
+          {
+            "id": "perm-1",
+            "name": "view_public",
+            "description": "Permission to view_public"
+          },
+          {
+            "id": "perm-2",
+            "name": "edit_profile",
+            "description": "Permission to edit_profile"
+          },
+          {
+            "id": "perm-3",
+            "name": "view_employees",
+            "description": "Permission to view_employees"
+          }
+        ]
+      },
+      "startDate": "2024-03-17",
+      "status": "active"
     }
   ],
   "roles": [
