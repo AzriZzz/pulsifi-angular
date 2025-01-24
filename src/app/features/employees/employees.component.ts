@@ -28,6 +28,7 @@ import {
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { EmployeeEditModalComponent } from './components/employee-edit-modal.component';
 import { AcIfDirective } from '../../shared/directives/ac-if.directive';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 @Component({
   selector: 'app-employees',
@@ -46,10 +47,17 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
     NzModalModule,
     NzRadioModule,
     AcIfDirective,
+    NzAlertModule,
   ],
   template: `
     <div class="employees-container">
-      <div class="header">
+      <nz-alert
+        nzType="info"
+        nzMessage="Informational Notes"
+        nzDescription="This pages can be accessed by admins and employees. Only action column is available for admins."
+        nzShowIcon
+      ></nz-alert>
+      <div class="header pt-6">
         <h1 class="text-2xl font-semibold">Employees</h1>
         <div class="header-actions">
           <button
@@ -375,28 +383,9 @@ export class EmployeesComponent implements OnDestroy {
   dateSortOrder: NzTableSortOrder = null;
   dateRange: [Date | null, Date | null] = [null, null];
 
-  readonly nameColumnWidth = signal('300px');
-
   constructor() {
     this.loadSavedFilterState();
     this.loadEmployees();
-    this.updateNameColumnWidth();
-  }
-
-  @HostListener('window:resize')
-  onResize() {
-    this.updateNameColumnWidth();
-  }
-
-  private updateNameColumnWidth(): void {
-    const width = window.innerWidth;
-    if (width <= 768) {
-      this.nameColumnWidth.set('100px');
-    } else if (width <= 1024) {
-      this.nameColumnWidth.set('200px');
-    } else {
-      this.nameColumnWidth.set('300px');
-    }
   }
 
   ngOnDestroy(): void {
