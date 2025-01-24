@@ -1,4 +1,10 @@
-import { Component, inject, signal, OnDestroy, HostListener } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  OnDestroy,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -175,7 +181,14 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
               >
                 Start Date
               </th>
-              <th *acIf="'manage_employees'" nzRight nzWidth="80px" class="actions-column">Actions</th>
+              <th
+                *acIf="'manage_employees'"
+                nzRight
+                nzWidth="80px"
+                class="actions-column"
+              >
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -291,7 +304,7 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
         border-radius: 8px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
       }
-      
+
       :host ::ng-deep {
         .ant-select,
         .ant-picker {
@@ -329,8 +342,12 @@ import { AcIfDirective } from '../../shared/directives/ac-if.directive';
         margin: 0;
         color: rgba(0, 0, 0, 0.85);
       }
-      nz-content {
-        padding: 0 !important;
+      nz-radio-group {
+        display: flex;
+        gap: 0px !important;
+        @media (max-width: 768px) {
+          gap: 16px !important;
+        }
       }
     `,
   ],
