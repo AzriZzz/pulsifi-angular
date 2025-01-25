@@ -51,6 +51,9 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
   ],
   template: `
     <div class="employees-container">
+      <div class="header">
+        <h1 class="text-2xl font-semibold">Employees</h1>
+      </div>
       <nz-alert
         nzType="info"
         *ngIf="isAlertVisible()"
@@ -59,20 +62,18 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         nzMessage="Informational Notes"
         nzDescription="This pages can be accessed by admins,managers and employees. Action column is not available for employees."
         nzShowIcon
+        class="py-4"
       ></nz-alert>
-      <div class="header pt-6">
-        <h1 class="text-2xl font-semibold">Employees</h1>
-        <div class="header-actions">
-          <button
-            nz-button
-            nzType="primary"
-            *acIf="'manage_employees'"
-            (click)="addEmployee()"
-          >
-            <i nz-icon nzType="plus"></i>
-            Add Employee
-          </button>
-        </div>
+      <div class="button-actions">
+        <button
+          nz-button
+          nzType="primary"
+          *acIf="'manage_employees'"
+          (click)="addEmployee()"
+        >
+          <i nz-icon nzType="plus"></i>
+          Add Employee
+        </button>
       </div>
 
       <div class="filters-card">
@@ -256,11 +257,13 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 24px;
       }
-      .header-actions {
+      .button-actions {
+        width: 100%;
         display: flex;
         gap: 16px;
+        justify-content: flex-end;
+        margin-bottom: 24px;
       }
       .filters-card {
         background: #ffffff;

@@ -19,19 +19,23 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
   ],
   template: `
     <div class="dashboard-container">
+      <div class="header">
+        <h1 class="text-2xl font-semibold">Dashboard</h1>
+      </div>
       <nz-alert
         *ngIf="isAlertVisible()"
         nzType="info"
         nzCloseable
         (nzOnClose)="afterClose()"
         nzMessage="Informational Notes"
-        nzDescription="Welcome to the dashboard. Here you can see the total number of employees, departments, and roles."
+        nzDescription="Welcome back, {{
+          userName
+        }}! Here you can see the total number of employees, departments, and roles."
         nzShowIcon
+        class="py-4"
       ></nz-alert>
-      <h1 class="text-2xl font-semibold pt-6">Welcome, {{ userName }}!</h1>
-      <div class="pb-6">
-        <h2 class="text-xl font-semibold">Dashboard</h2>
-      </div>
+
+      <div class="content">
       <div nz-row [nzGutter]="[16, 16]">
         <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="8">
           <nz-card>
@@ -66,14 +70,13 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         padding: 24px;
         background: #f0f2f5;
         min-height: 100vh;
-
         @media (max-width: 768px) {
-          padding: 16px;
+          padding: 0;
         }
       }
-
-      h1 {
-        margin-bottom: 24px;
+      
+      .content {
+        padding:24px 0 ;
       }
 
       :host ::ng-deep {
