@@ -131,7 +131,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
                   [(ngModel)]="statusFilter"
                   (ngModelChange)="applyFilters()"
                 >
-                  <label nz-radio [nzValue]="">All</label>
+                  <!-- <label nz-radio [nzValue]="">All</label> -->
                   <label nz-radio nzValue="active">Active</label>
                   <label nz-radio nzValue="inactive">Inactive</label>
                 </nz-radio-group>
