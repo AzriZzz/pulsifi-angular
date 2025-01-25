@@ -75,8 +75,8 @@ Build artifacts will be stored in the `dist/` directory.
 
 ## Deployment
 
-- [Firebase Deployment Guide](FIREBASE_DEPLOYMENT.md) - Frontend application deployment
-- [Render Deployment Guide](RENDER_DEPLOYMENT.md) - JSON Server API deployment
+- [Firebase Deployment Guide](docs/FIREBASE_DEPLOYMENT.md) - Frontend application deployment
+- [Render Deployment Guide](docs/RENDER_DEPLOYMENT.md) - JSON Server API deployment
 
 ## Additional Resources
 
