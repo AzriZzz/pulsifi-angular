@@ -112,6 +112,9 @@ import {
         display: block;
         max-width: 800px;
         margin: 2rem auto;
+        @media (max-width: 768px) {
+          margin: 0;
+        }
       }
 
       .wizard-container {
@@ -119,7 +122,7 @@ import {
         // padding: 24px;
 
         @media (max-width: 768px) {
-          padding: 16px;
+          padding: 0;
         }
       }
 
