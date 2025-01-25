@@ -27,7 +27,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
         nzCloseable
         (nzOnClose)="afterClose()"
         nzMessage="Informational Notes"
-        nzDescription="This pages is still under contruction and can only be accessed by admins and managers."
+        nzDescription="This pages is still under development and can only be accessed by admins and managers."
         nzShowIcon
       ></nz-alert>
       <div class="header pt-6">
