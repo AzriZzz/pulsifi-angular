@@ -94,7 +94,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
         </nz-spin>
       </div>
       <div class="footer">
-        <span>By Muhammad Azri</span>
+        <span>Pulsifi Assessment - By Muhammad Azri</span>
         <a
           href="https://github.com/AzriZzz/pulsifi-angular"
           target="_blank"

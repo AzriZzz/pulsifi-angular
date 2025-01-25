@@ -280,8 +280,10 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
       .filter-group {
         display: flex;
         gap: 16px;
-        align-items: flex-end;
-        flex-wrap: wrap;
+        justify-content: space-between;
+        @media (max-width: 1280px) {
+          flex-wrap: wrap;
+        }
       }
       .filter-item {
         display: flex;

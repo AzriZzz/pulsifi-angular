@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -46,7 +46,10 @@ import {
       </div>
 
       <nz-card>
-        <nz-steps [nzCurrent]="currentStep()">
+        <nz-steps
+          [nzCurrent]="currentStep()"
+          [nzDirection]="isMobileView ? 'vertical' : 'horizontal'"
+        >
           <nz-step
             *ngFor="let step of steps(); let i = index"
             [nzTitle]="step.title"
@@ -55,7 +58,7 @@ import {
           ></nz-step>
         </nz-steps>
 
-        <div class="step-content mt-8">
+        <div class="step-content">
           <ng-container [ngSwitch]="currentStep()">
             <app-personal-info-step
               *ngSwitchCase="0"
@@ -168,7 +171,7 @@ import {
     `,
   ],
 })
-export class EmployeeWizardComponent {
+export class EmployeeWizardComponent implements OnDestroy {
   private authService = inject(AuthService);
   private router = inject(Router);
   private validationService = inject(EmployeeValidationService);
@@ -219,11 +222,23 @@ export class EmployeeWizardComponent {
     },
   });
 
+  isMobileView = window.innerWidth <= 768;
+
   constructor() {
     // Check for manage_employees permission
     if (!this.authService.hasPermission('manage_employees')) {
       this.router.navigate(['/']);
     }
+
+    window.addEventListener('resize', () => {
+      this.isMobileView = window.innerWidth <= 768;
+    });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', () => {
+      this.isMobileView = window.innerWidth <= 768;
+    });
   }
 
   getStepStatus(index: number): string {
