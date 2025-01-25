@@ -53,6 +53,9 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
     <div class="employees-container">
       <nz-alert
         nzType="info"
+        *ngIf="isAlertVisible()"
+        nzCloseable
+        (nzOnClose)="afterClose()"
         nzMessage="Informational Notes"
         nzDescription="This pages can be accessed by admins,managers and employees. Action column is not available for employees."
         nzShowIcon
@@ -373,6 +376,7 @@ export class EmployeesComponent implements OnDestroy {
   readonly loading = signal(true);
   readonly departments = signal<string[]>([]);
   readonly roles = signal<string[]>([]);
+  readonly isAlertVisible = signal<boolean>(true);
 
   // Filters
   nameFilter = '';
@@ -386,6 +390,8 @@ export class EmployeesComponent implements OnDestroy {
   constructor() {
     this.loadSavedFilterState();
     this.loadEmployees();
+    const alertHidden = localStorage.getItem('employees-alert') === 'true';
+    this.isAlertVisible.set(!alertHidden);
   }
 
   ngOnDestroy(): void {
@@ -569,5 +575,10 @@ export class EmployeesComponent implements OnDestroy {
         this.loading.set(false);
       },
     });
+  }
+
+  afterClose(): void {
+    this.isAlertVisible.set(false);
+    localStorage.setItem('employees-alert', 'true');
   }
 }

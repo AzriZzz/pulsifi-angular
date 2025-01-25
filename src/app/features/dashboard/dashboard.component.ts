@@ -20,7 +20,10 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
   template: `
     <div class="dashboard-container">
       <nz-alert
+        *ngIf="isAlertVisible()"
         nzType="info"
+        nzCloseable
+        (nzOnClose)="afterClose()"
         nzMessage="Informational Notes"
         nzDescription="Welcome to the dashboard. Here you can see the total number of employees, departments, and roles."
         nzShowIcon
@@ -102,6 +105,12 @@ export class DashboardComponent implements OnInit {
   readonly totalEmployees = signal<number>(0);
   readonly totalDepartments = signal<number>(0);
   readonly totalRoles = signal<number>(0);
+  readonly isAlertVisible = signal<boolean>(true);
+
+  constructor() {
+    const alertHidden = localStorage.getItem('dashboard-alert') === 'true';
+    this.isAlertVisible.set(!alertHidden);
+  }
 
   ngOnInit(): void {
     this.loadTotalEmployees();
@@ -126,5 +135,10 @@ export class DashboardComponent implements OnInit {
   get userName(): string {
     const user = this.authService.getCurrentUser();
     return user ? `${user.firstName} ${user.lastName}` : 'User';
+  }
+
+  afterClose(): void {
+    localStorage.setItem('dashboard-alert', 'true');
+    this.isAlertVisible.set(false);
   }
 }

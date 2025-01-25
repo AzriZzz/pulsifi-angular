@@ -118,6 +118,9 @@ export class AuthService {
   private clearState(): void {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user');
+    localStorage.removeItem('dashboard-alert');
+    localStorage.removeItem('employees-alert');
+    localStorage.removeItem('roles-alert');
     this.currentUser.set(null);
     this.authToken.set(null);
   }
