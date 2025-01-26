@@ -14,7 +14,7 @@ import { ValidationResponse } from '../../../shared/interfaces/api.interface';
   providedIn: 'root',
 })
 export class EmployeeValidationService {
-  private apiUrl = 'https://mock-pulsifi-json-server.onrender.com/api';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
