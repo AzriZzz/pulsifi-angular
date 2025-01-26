@@ -13,11 +13,13 @@ import {
   AuthResponse,
   LoginCredentials,
 } from '../../shared/interfaces/api.interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly apiUrl = environment.apiUrl;
   // Signal-based state
   private readonly currentUser = signal<User | null>(null);
   private readonly authToken = signal<string | null>(null);
@@ -127,7 +129,7 @@ export class AuthService {
 
   // Login
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http.get<MockUser[]>('/users').pipe(
+    return this.http.get<MockUser[]>(`${this.apiUrl}/users`).pipe(
       map((users) => {
         const user = users.find(
           (u) =>
