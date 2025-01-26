@@ -195,11 +195,11 @@ import {
           vertical-align: 1;
         }
 
-        @media (max-width: 1024px) {
-          .ant-layout-sider-trigger {
-            display: none !important;
-          }
-        }
+        // @media (max-width: 1024px) {
+        //   .ant-layout-sider-trigger {
+        //     display: none !important;
+        //   }
+        // }
       }
 
       .bg-opacity-50 {
