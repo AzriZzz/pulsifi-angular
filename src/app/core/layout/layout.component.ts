@@ -110,6 +110,7 @@ import {
               nz-menu-item
               routerLink="/dashboard"
               routerLinkActive="ant-menu-item-selected"
+              (click)="isMobile() && toggleSidebar()"
             >
               <span nz-icon nzType="dashboard" nzTheme="outline"></span>
               <span class="sidebar-title">Dashboard</span>
@@ -119,6 +120,7 @@ import {
               *acIf="'view_employees'"
               routerLink="/employees"
               routerLinkActive="ant-menu-item-selected"
+              (click)="isMobile() && toggleSidebar()"
             >
               <span nz-icon nzType="team" nzTheme="outline"></span>
               <span class="sidebar-title">Employees</span>
@@ -128,6 +130,7 @@ import {
               *acIf="'manage_roles'"
               routerLink="/roles"
               routerLinkActive="ant-menu-item-selected"
+              (click)="isMobile() && toggleSidebar()"
             >
               <span
                 nz-icon
@@ -282,7 +285,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   onCollapse(collapsed: boolean) {
-    console.log('collapsed', collapsed);
     this.collapsed.set(collapsed);
     this.prefs.setSidebarState(collapsed);
     this.cdr.detectChanges();
