@@ -60,7 +60,10 @@ You can use these credentials to test different user roles:
 # Install dependencies
 npm install
 
-# Start development server
+# Start mock server (terminal 1)
+npm run mock:server
+
+# Start development server (terminal 2)
 ng serve
 ```
 
@@ -68,7 +71,7 @@ Navigate to `http://localhost:4200/`. The application will automatically reload 
 
 ### Building for Production
 ```bash
-ng build
+ng build --configuration production
 ```
 
 Build artifacts will be stored in the `dist/` directory.
