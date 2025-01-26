@@ -54,11 +54,31 @@ For long-term maintenance, consider implementing these optimizations:
 ### 3. Build Your Angular Application
 
 ```bash
-# Build the production version of your application
-npm run build
+# Build the production version of your application with environment configuration
+ng build --configuration=production
 ```
 
-This will create a `dist` folder containing your production-ready application.
+This will:
+1. Create a `dist` folder containing your production-ready application
+2. Replace `environment.ts` with `environment.prod.ts`
+3. Enable production mode optimizations
+4. Apply all production configurations from angular.json
+
+The production build will use the following configurations from angular.json:
+```json
+"configurations": {
+  "production": {
+    "budgets": [...],
+    "fileReplacements": [
+      {
+        "replace": "src/environments/environment.ts",
+        "with": "src/environments/environment.prod.ts"
+      }
+    ],
+    "outputHashing": "all"
+  }
+}
+```
 
 ### 4. Firebase Setup
 
