@@ -33,6 +33,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
         nzMessage="Informational Notes"
         nzDescription="This pages is still under development and can only be accessed by admins and managers."
         nzShowIcon
+        class="py-4"
       ></nz-alert>
 
       <div class="development-message">
@@ -58,7 +59,6 @@ import { NzIconService } from 'ng-zorro-antd/icon';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 24px;
       }
       h1 {
         margin: 0;
