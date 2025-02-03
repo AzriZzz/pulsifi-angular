@@ -179,8 +179,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         >
           <thead>
             <tr>
-              <!-- <th nzLeft [nzWidth]="nameColumnWidth()">Name</th> -->
-              <th nzWidth="150px">Name</th>
+              <th nzLeft [nzWidth]="nameColumnWidth()">Name</th>
+              <!-- <th nzWidth="150px">Name</th> -->
               <th nzWidth="150px">Department</th>
               <th nzWidth="150px">Role</th>
               <th nzWidth="120px">Status</th>
@@ -193,9 +193,16 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
               >
                 Start Date
               </th>
-              <th
+              <!-- <th
                 *acIf="'manage_employees'"
                 nzRight
+                nzWidth="80px"
+                class="actions-column"
+              >
+                Actions
+              </th> -->
+              <th
+                *acIf="'manage_employees'"
                 nzWidth="80px"
                 class="actions-column"
               >
@@ -205,8 +212,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
           </thead>
           <tbody>
             <tr *ngFor="let employee of basicTable.data">
-              <!-- <td nzLeft>{{ employee.firstName }} {{ employee.lastName }}</td> -->
-              <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+              <td nzLeft>{{ employee.firstName }} {{ employee.lastName }}</td>
+              <!-- <td>{{ employee.firstName }} {{ employee.lastName }}</td> -->
               <td>{{ employee.department }}</td>
               <td>{{ employee.role.name || '-' }}</td>
               <td>
@@ -217,7 +224,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
                 </nz-tag>
               </td>
               <td>{{ employee.startDate | date : 'mediumDate' }}</td>
-              <td *acIf="'manage_employees'" nzRight class="actions-column">
+              <!-- <td *acIf="'manage_employees'" nzRight class="actions-column"> -->
+              <td *acIf="'manage_employees'" class="actions-column">
                 <button
                   nz-button
                   nzType="link"
@@ -391,6 +399,10 @@ export class EmployeesComponent implements OnDestroy {
   pageSize = 10;
   dateSortOrder: NzTableSortOrder = null;
   dateRange: [Date | null, Date | null] = [null, null];
+
+  nameColumnWidth() {
+    return window.innerWidth < 768 ? '120px' : '150px';
+  }
 
   constructor() {
     this.loadSavedFilterState();
